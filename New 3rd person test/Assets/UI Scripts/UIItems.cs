@@ -1,18 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIItems : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Item item;
+    private Image spriteImage;
+
+    void Awake()
     {
-        
+        spriteImage = GetComponent<Image>();
+
+        UpdateItem(null);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateItem(Item item)
     {
-        
+        this.item = item;
+
+        if (item != null)
+        {
+            spriteImage.color = Color.white;
+            spriteImage.sprite = item.icon;
+        }
+        else
+        {
+            spriteImage.color = Color.clear;
+        }
     }
 }

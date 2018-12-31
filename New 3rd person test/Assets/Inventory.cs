@@ -7,16 +7,24 @@ public class Inventory : MonoBehaviour
     public List<Item> characterItems = new List<Item>();
 
     public ItemDatabase itemDatabase;
+    public UIInventory inventoryUI;
 
     void Start()
     {
-        GiveItem(0);
-        RemoveItem(1);
+        GiveItem("Diamond Ore");
+        GiveItem("Gold Ore");
+        GiveItem("Diamond Ore");
+        GiveItem("Gold Ore");
+        GiveItem("Diamond Ore");
+        GiveItem("Gold Ore");
     }
+
 
     public void GiveItem(int ID)
     {
         Item itemToAdd = itemDatabase.GetItem(ID);
+        inventoryUI.AddNewItem(itemToAdd);
+
 
         characterItems.Add(itemToAdd);
         print("Add the item: "+itemToAdd.itemName );
@@ -26,6 +34,8 @@ public class Inventory : MonoBehaviour
     public void GiveItem(string itemName)
     {
         Item itemToAdd = itemDatabase.GetItem(itemName);
+        inventoryUI.AddNewItem(itemToAdd);
+
 
         characterItems.Add(itemToAdd);
         print("Add the item: " + itemToAdd.itemName);
@@ -44,6 +54,9 @@ public class Inventory : MonoBehaviour
         if (itemToRemove != null)
         {
             characterItems.Remove(itemToRemove);
+
+            inventoryUI.RemoveItem(itemToRemove);
+
             print("Removed item: "+ itemToRemove.itemName);
         }
     }

@@ -11,6 +11,7 @@ public class ItemDatabase : MonoBehaviour
 
     public Item GetItem(int itemID)
     {
+        // iterate through list.
       return  items.Find(item => item.ID == itemID);
     }
 

@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<UIItems> uiItems = new List<UIItems>();
+    public GameObject slotPrefab;
+    public Transform slotPanel;
+
+    void Awake()
     {
-        
+        for (int i = 0; i < 25; i++)
+        {
+            GameObject instance = Instantiate(slotPrefab);
+            instance.transform.SetParent(slotPanel);
+            uiItems.Add(instance.GetComponentInChildren<UIItems>());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateItem(int slot, Item item)
     {
-        
+        uiItems[slot].UpdateItem(item);
+    }
+
+    public void AddNewItem(Item item)
+    {
+        UpdateItem(uiItems.FindIndex(i => i.item == null), item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        UpdateItem(uiItems.FindIndex(i => i.item == item), null);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    public List<UIItems> uiItems = new List<UIItems>();
+    public List<UIItem> uiItems = new List<UIItem>();
     public GameObject slotPrefab;
     public Transform slotPanel;
 
@@ -14,13 +14,13 @@ public class UIInventory : MonoBehaviour
         {
             GameObject instance = Instantiate(slotPrefab);
             instance.transform.SetParent(slotPanel);
-            uiItems.Add(instance.GetComponentInChildren<UIItems>());
+            uiItems.Add(instance.GetComponentInChildren<UIItem>());
         }
     }
 
     public void UpdateItem(int slot, Item item)
     {
-        uiItems[slot].UpdateItem(item);
+        uiItems[slot].UpdateItemSlot(item);
     }
 
     public void AddNewItem(Item item)

@@ -26,11 +26,11 @@ public class Item
 
     public Item(Item item)
     {
-        this.ID = ID;
-        this.itemName = itemName;
-        this.description = description;
+        this.ID = item.ID;
+        this.itemName = item.itemName;
+        this.description = item.description;
         // this.icon =  Resources.Load<Sprite>("Assets / Resources / Sprites / sprite01.png");
-        this.stats = stats;
+        this.stats = item.stats;
         this.icon = Resources.Load<Sprite>("Sprites/Items/" + itemName);
     }
 }

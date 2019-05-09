@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
 {
     private CharacterController characterController;
 
-
+    [SerializeField]private GameObject playerInventory;
     //floats
     [SerializeField] private float characterSpeed = 3.5f;
+
+
+
     private float gravity = 9.81f;
 
 
@@ -23,6 +26,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         ProcessMovement();
+        DisplayInventory();
 
     }
 
@@ -37,5 +41,19 @@ public class Player : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
 
     }
-}
 
+    private void DisplayInventory()
+    {
+        if (Input.GetKeyDown(KeyCode.I) && playerInventory.activeSelf)
+        {
+            playerInventory.SetActive(false);
+
+        }
+
+        else if (Input.GetKeyDown(KeyCode.I) && !playerInventory.activeSelf)
+        {
+            playerInventory.SetActive(true);
+
+        }
+    }
+}

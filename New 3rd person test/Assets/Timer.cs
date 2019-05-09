@@ -26,11 +26,12 @@ public class Timer : MonoBehaviour
 	    float t = Time.time - startTime;
 	    int minutes = (int) t / 60;
 	    float seconds = t % 60;
-	    if (minutes == 1)
+	    if (seconds >= 5)
 	    {
 	       
             Finish();
-   	    }
+            t = 0;
+        }
 	}
 
     public void Finish()

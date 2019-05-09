@@ -8,8 +8,8 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
 {
     public Item item;
     private Image spriteImage;
-    private UIItem selectedItem; 
-
+    private UIItem selectedItem;
+    [SerializeField] private Inventory inventory; 
     void Awake()
     {
         selectedItem = GameObject.Find("Selected Item").GetComponent<UIItem>();
@@ -17,6 +17,14 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
         spriteImage = GetComponent<Image>();
 
         UpdateItemSlot(null);
+
+        
+    }
+
+    void Update()
+    {
+     
+       
     }
 
     public void UpdateItemSlot(Item item)
@@ -34,6 +42,7 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
         }
     }
 
+   
     public void OnPointerDown(PointerEventData eventData)
     {
         if (this.item != null)
@@ -41,21 +50,37 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
 
             if (selectedItem.item != null)
             {
+                
                 Item clone = new Item(selectedItem.item);
                 selectedItem.UpdateItemSlot(this.item);
                 UpdateItemSlot(clone);
+                
+                
             }
             else
             {
+                
                 selectedItem.UpdateItemSlot(this.item);
                 UpdateItemSlot(null);
+                
+                
             }
 
+        }
+        else if (selectedItem.item != null && Input.GetMouseButtonDown(1))
+        {
+            UpdateItemSlot(selectedItem.item);
+            
+            selectedItem.UpdateItemSlot(null);
+            
+            
         }
         else if (selectedItem.item != null)
         {
             UpdateItemSlot(selectedItem.item);
             selectedItem.UpdateItemSlot(null);
+
+
         }
     }
 }

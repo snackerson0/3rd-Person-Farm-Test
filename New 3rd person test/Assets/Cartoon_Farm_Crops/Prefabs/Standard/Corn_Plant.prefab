@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 33000011654929274}
   - component: {fileID: 23000010765629750}
   - component: {fileID: 64000011284429378}
-  - component: {fileID: 6619050864671794791}
-  - component: {fileID: 2578070296096240939}
+  - component: {fileID: 2076162027422170567}
+  - component: {fileID: 5493600485999204517}
   m_Layer: 0
   m_Name: Corn_Plant
   m_TagString: Untagged
@@ -94,7 +94,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300012, guid: b69b26c8b73b8bd49bf243bbe541a2e0, type: 3}
---- !u!114 &6619050864671794791
+--- !u!114 &2076162027422170567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinished: 0
---- !u!114 &2578070296096240939
+--- !u!114 &5493600485999204517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,3 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95e13179aea5e949903b096d9ef85e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plantHeight: 7

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SeedGrowth : MonoBehaviour
 {
     private Timer timer;
-
+    [SerializeField] int plantHeight;
    
 
     // Start is called before the first frame update
@@ -17,7 +17,8 @@ public class SeedGrowth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CheckGrowTimer()) IncreasePlantSize();
+        if (CheckGrowTimer())
+            { IncreasePlantSize(); };
     }
 
 
@@ -38,7 +39,7 @@ public class SeedGrowth : MonoBehaviour
 
     void IncreasePlantSize()
     {
-        transform.localScale = new Vector3 (1,4,1);
+        transform.localScale = new Vector3 (1,plantHeight,1);
 
     }
 }

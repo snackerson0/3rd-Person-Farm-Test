@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Farming : MonoBehaviour
 {
-    [SerializeField] private GameObject seedToCreate;
+    [SerializeField] public GameObject seedToCreate;
 
     
     // Start is called before the first frame update

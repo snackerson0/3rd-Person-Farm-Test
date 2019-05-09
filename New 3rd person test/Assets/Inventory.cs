@@ -20,14 +20,22 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         GiveItem("cartoon seeds");
-        
+        GiveItem("Gold Ore");
     }
+
+    int testUseItem = 1;
+    bool firstUsedItem = false;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !firstUsedItem)
         {
             UseItem(2);
+            firstUsedItem = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.P) && firstUsedItem)
+        {
+            UseItem(1);
         }
     }
     public void GiveItem(int ID)
@@ -77,7 +85,7 @@ public class Inventory : MonoBehaviour
 
         if(itemToUse != null)
         {
-            farming.seedToCreate = itemToUse.prefab;
+            farming.NewSeedToUse(itemToUse.prefab);
 
             RemoveItem(itemID);
         }

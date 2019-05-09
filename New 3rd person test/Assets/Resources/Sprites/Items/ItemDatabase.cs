@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemDatabase : MonoBehaviour
 {
     [SerializeField] private GameObject turnipSeed;
+    [SerializeField] private GameObject tomatoSeed; 
    void Awake()
     {
         BuildDatabase();
@@ -31,9 +32,9 @@ public class ItemDatabase : MonoBehaviour
                 {
                     {"Value", 300}
                 }),
-
-            new Item(1, "Gold Ore", "Smelt to make gold bars", new Dictionary<string, int>{{"Value", 200}} ),
-            */
+*/
+            new Item(1, "Gold Ore", "Smelt to make gold bars",tomatoSeed, new Dictionary<string, int>{{"Value", 200}} ),
+            
             new Item(2, "cartoon seeds", "A pack of seeds",turnipSeed, new Dictionary<string, int>{{"Value",20}})
 
         };

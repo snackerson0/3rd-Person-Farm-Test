@@ -101,12 +101,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000010164499024}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b95e13179aea5e949903b096d9ef85e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantHeight: 22
+  plantHeight: 15
 --- !u!114 &8474375515556728759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,3 +120,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinished: 0
+  otherobj: {fileID: 1000010164499024}
+  scr: Seed Growth

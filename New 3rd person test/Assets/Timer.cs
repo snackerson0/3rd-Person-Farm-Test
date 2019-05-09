@@ -7,17 +7,21 @@ public class Timer : MonoBehaviour
     private float startTime;
     public bool isFinished = false;
 
-    
-	
-	void Start ()
+    SeedGrowth growSeed;
+  
+     void Awake ()
 	{
-        // Gets and sets current object time to the time current in the world.
-	    startTime = Time.time;
-	}
-	
-	
 
-	void Update ()
+        // Gets and sets current object time to the time current in the world.
+        
+	    startTime = Time.time;
+        isFinished = false;
+        growSeed = GetComponent<SeedGrowth>();
+	}
+    
+    
+
+    void Update ()
 	{
         
 	    if (isFinished)
@@ -28,14 +32,19 @@ public class Timer : MonoBehaviour
 	    float seconds = t % 60;
 	    if (seconds >= 5)
 	    {
-	       
+
+
+            
             Finish();
-            t = 0;
+            growSeed.enabled = true;
+            growSeed.IncreasePlantSize();
         }
 	}
 
     public void Finish()
     {
-        isFinished = true; 
+        isFinished = true;
+        print("plant finished");
+        
     }
 }

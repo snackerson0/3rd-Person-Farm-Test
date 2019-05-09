@@ -6,7 +6,13 @@ public class SeedGrowth : MonoBehaviour
 {
     private Timer timer;
     [SerializeField] int plantHeight;
-   
+
+    private void Awake()
+    {
+        transform.localScale = new Vector3(1, 1, 1);
+        enabled = false;
+        
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +21,7 @@ public class SeedGrowth : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (CheckGrowTimer())
-            { IncreasePlantSize(); };
-    }
-
+  
 
 
     //used to only display CheckGrowTimer() message once.
@@ -37,10 +38,10 @@ public class SeedGrowth : MonoBehaviour
         return false;
     }
 
-    void IncreasePlantSize()
+   public void IncreasePlantSize()
     {
         transform.localScale = new Vector3 (1,plantHeight,1);
-
+        print("increasing plant size");
     }
 }
 

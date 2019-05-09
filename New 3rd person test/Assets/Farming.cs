@@ -5,7 +5,7 @@ using UnityEngine;
 public class Farming : MonoBehaviour
 {
     [SerializeField] public GameObject seedToCreate;
-
+    
     
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,7 @@ public class Farming : MonoBehaviour
                 GridElement tempGridElement = hitInfo.transform.GetComponent<GridElement>();
                 if (tempGridElement.isPlowed && !tempGridElement.hasPlantedCrop)
                 {
+                    
                     Instantiate(seedToCreate, hitInfo.transform);
                     tempGridElement.hasPlantedCrop = true;
                 }
@@ -69,6 +70,13 @@ public class Farming : MonoBehaviour
         }
 
         return false;
+    }
+    public void NewSeedToUse(GameObject newSeed)
+    {
+        if (newSeed != null)
+        {
+            seedToCreate = newSeed;
+        }
     }
 }
 

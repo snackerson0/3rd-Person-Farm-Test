@@ -38,6 +38,7 @@ public class Timer : MonoBehaviour
             Finish();
             growSeed.enabled = true;
             growSeed.IncreasePlantSize();
+            growSeed.isPlantFullyGrown = true;
         }
 	}
 

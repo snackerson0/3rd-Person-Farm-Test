@@ -16,12 +16,12 @@ public class Farming : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DetectUsableSoil();
+        PlantAndHarvestCrops();
         IsSoilPlowed();
     }
 
 
-    void DetectUsableSoil()
+    void PlantAndHarvestCrops()
     {
         Vector3 bellowPlayer = transform.TransformDirection(Vector3.down);
         RaycastHit hitInfo;
@@ -38,6 +38,12 @@ public class Farming : MonoBehaviour
                     tempGridElement.hasPlantedCrop = true;
                 }
                 else print("Soil may not be plowed press E to plow or a crop is already planted");
+
+
+                if(tempGridElement.isPlowed && tempGridElement.hasPlantedCrop)
+                {
+                    HarvestCrop(tempGridElement);
+                }
             }
 
         }
@@ -71,11 +77,27 @@ public class Farming : MonoBehaviour
 
         return false;
     }
+
     public void NewSeedToUse(GameObject newSeed)
     {
         if (newSeed != null)
         {
             seedToCreate = newSeed;
+        }
+    }
+
+    private void HarvestCrop(GridElement tempGridElement)
+    {
+        GameObject currentCrop = tempGridElement.transform.GetChild(0).gameObject;
+        SeedGrowth currentPlantGrowth = currentCrop.GetComponent<SeedGrowth>();
+
+        if (currentPlantGrowth != null)
+        {
+            if (currentPlantGrowth.isPlantFullyGrown)
+            {
+                Destroy(currentCrop);
+                tempGridElement.hasPlantedCrop = false;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ public class SeedGrowth : MonoBehaviour
     private Timer timer;
     [SerializeField] int plantHeight;
 
+    public bool isPlantFullyGrown = false;
     private void Awake()
     {
         transform.localScale = new Vector3(1, 1, 1);

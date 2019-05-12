@@ -61,11 +61,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BuyButton.cs" />
     <Compile Include="Assets\Farming.cs" />
     <Compile Include="Assets\Grid Scripts\Build.cs" />
     <Compile Include="Assets\Grid Scripts\Buildings.cs" />
     <Compile Include="Assets\Grid Scripts\GridElement.cs" />
     <Compile Include="Assets\Inventory.cs" />
+    <Compile Include="Assets\OpenShopMenu.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Resources\Sprites\Items\Item.cs" />
     <Compile Include="Assets\Resources\Sprites\Items\ItemDatabase.cs" />

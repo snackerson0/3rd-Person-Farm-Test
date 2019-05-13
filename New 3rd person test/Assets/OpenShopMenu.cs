@@ -22,15 +22,6 @@ public class OpenShopMenu : MonoBehaviour
 
                 menu.SetActive(!menu.activeSelf);
 
-                /*
-                 
-                Player currentPlayer = other.GetComponent<Player>();
-
-                if(currentPlayer != null)
-                {
-                   
-                }
-                */
             }
         }
     }

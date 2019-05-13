@@ -62,7 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BuyButton.cs" />
-    <Compile Include="Assets\Farming.cs" />
+    <Compile Include="Assets\Farming\Farming.cs" />
+    <Compile Include="Assets\Farming\Harvest.cs" />
+    <Compile Include="Assets\Farming\SeedGrowth.cs" />
+    <Compile Include="Assets\Farming\Timer.cs" />
     <Compile Include="Assets\Grid Scripts\Build.cs" />
     <Compile Include="Assets\Grid Scripts\Buildings.cs" />
     <Compile Include="Assets\Grid Scripts\GridElement.cs" />
@@ -71,8 +74,6 @@
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Resources\Sprites\Items\Item.cs" />
     <Compile Include="Assets\Resources\Sprites\Items\ItemDatabase.cs" />
-    <Compile Include="Assets\SeedGrowth.cs" />
-    <Compile Include="Assets\Timer.cs" />
     <Compile Include="Assets\UI Scripts\ItemFollowMouse.cs" />
     <Compile Include="Assets\UI Scripts\UIInventory.cs" />
     <Compile Include="Assets\UI Scripts\UIItem.cs" />

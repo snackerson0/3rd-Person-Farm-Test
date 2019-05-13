@@ -19,6 +19,6 @@ public class BuyButton : MonoBehaviour
 
     public void BuyItem()
     {
-        playerInventory.GiveItem(itemIDNumber);
+        playerInventory.AddItem(itemIDNumber);
     }
 }

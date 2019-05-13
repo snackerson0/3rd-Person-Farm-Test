@@ -19,8 +19,8 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        GiveItem("cartoon seeds");
-        GiveItem("Gold Ore");
+        AddItem("cartoon seeds");
+        AddItem("Gold Ore");
     }
 
     int testUseItem = 1;
@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour
             UseItem(1);
         }
     }
-    public void GiveItem(int ID)
+    public void AddItem(int ID)
     {
         Item itemToAdd = itemDatabase.GetItem(ID);
         inventoryUI.AddNewItem(itemToAdd);
@@ -49,7 +49,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void GiveItem(string itemName)
+    public void AddItem(string itemName)
     {
         Item itemToAdd = itemDatabase.GetItem(itemName);
         inventoryUI.AddNewItem(itemToAdd);

@@ -30,6 +30,7 @@ public class Item
         this.ID = item.ID;
         this.itemName = item.itemName;
         this.description = item.description;
+        this.prefab = item.prefab;
         // this.icon =  Resources.Load<Sprite>("Assets / Resources / Sprites / sprite01.png");
         this.stats = item.stats;
         this.icon = Resources.Load<Sprite>("Sprites/Items/" + itemName);

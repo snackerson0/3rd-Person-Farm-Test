@@ -70,6 +70,8 @@
     <Compile Include="Assets\Grid Scripts\Buildings.cs" />
     <Compile Include="Assets\Grid Scripts\GridElement.cs" />
     <Compile Include="Assets\Inventory.cs" />
+    <Compile Include="Assets\LookX.cs" />
+    <Compile Include="Assets\LookY.cs" />
     <Compile Include="Assets\OpenShopMenu.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Resources\Sprites\Items\Item.cs" />

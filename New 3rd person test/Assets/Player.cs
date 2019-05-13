@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     //floats
     [SerializeField] private float characterSpeed = 3.5f;
 
-
+    
 
     private float gravity = 9.81f;
 
@@ -32,14 +32,20 @@ public class Player : MonoBehaviour
 
     private void ProcessMovement()
     {
+        
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
 
         Vector3 velocity = direction * characterSpeed;
 
         velocity.y -= gravity; // applies gravity.
 
-        characterController.Move(velocity * Time.deltaTime);
+        // makes the player move to whatever direction is forward.
+        Vector3 tempVector = transform.TransformDirection(velocity);
 
+        characterController.Move(tempVector* Time.deltaTime);
+        
+
+      
     }
 
     private void DisplayInventory()

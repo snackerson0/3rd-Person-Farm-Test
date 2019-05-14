@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BuyButton.cs" />
+    <Compile Include="Assets\Currency.cs" />
     <Compile Include="Assets\Farming\Farming.cs" />
     <Compile Include="Assets\Farming\Harvest.cs" />
     <Compile Include="Assets\Farming\SeedGrowth.cs" />

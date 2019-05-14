@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        playerInventory.SetActive(false);
     }
 
     // Update is called once per frame

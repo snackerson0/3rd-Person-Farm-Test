@@ -33,13 +33,13 @@ public class ItemDatabase : MonoBehaviour
                     {"Value", 300}
                 }),
 */
-            new Item(1, "Gold Ore", "Smelt to make gold bars",tomatoSeed, new Dictionary<string, int>{{"Value", 20}} ),
+            new Item(1, "Gold Ore", "Smelt to make gold bars",20,tomatoSeed, new Dictionary<string, int>{{"Value", 20}} ),
             
-            new Item(2, "cartoon seeds", "A pack of seeds",turnipSeed, new Dictionary<string, int>{{"Value",20}}),
+            new Item(2, "cartoon seeds", "A pack of seeds", 30, turnipSeed, new Dictionary<string, int>{{"Value",20}}),
 
-            new Item(3, "Tomato","It is a tomato",tomatoSeed,new Dictionary<string, int>{{"Value",60}}),
+            new Item(3, "Tomato","It is a tomato", 40, tomatoSeed, new Dictionary<string, int>{{"Value",60}}),
 
-            new Item(4, "Turnip","It is a turnip",turnipSeed,new Dictionary<string, int>{{"Value",60}})
+            new Item(4, "Turnip","It is a turnip", 65, turnipSeed,new Dictionary<string, int>{{"Value",60}})
         };
     }
 }

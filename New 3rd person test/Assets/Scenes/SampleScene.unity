@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 245069064}
   - component: {fileID: 245069065}
   - component: {fileID: 245069066}
+  - component: {fileID: 245069067}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -563,6 +564,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &245069067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245069057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f26a12618e78a048a6ed598ca098d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &326010033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2425,7 +2438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2063507588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2628,6 +2641,31 @@ PrefabInstance:
       propertyPath: itemIDNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7693408119310022841, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: playerCurrency
+      value: 
+      objectReference: {fileID: 245069067}
+    - target: {fileID: 8413609330630262683, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SellItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505395258111734147, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: itemIDNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505395258111734147, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: itemToSellID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505395258111734147, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: playerCurrency
+      value: 
+      objectReference: {fileID: 245069067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d702f0e5bb5d59c409cd588068b7fa62, type: 3}
 --- !u!114 &2144164412 stripped
@@ -2759,5 +2797,35 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7693408119310022841, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: playerCurrency
+      value: 
+      objectReference: {fileID: 245069067}
+    - target: {fileID: 7693408119310022837, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693408118108434762, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: m_Text
+      value: Buy Seed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413609330630262683, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SellItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505395258111734147, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: itemToSellID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505395258111734147, guid: d702f0e5bb5d59c409cd588068b7fa62,
+        type: 3}
+      propertyPath: playerCurrency
+      value: 
+      objectReference: {fileID: 245069067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d702f0e5bb5d59c409cd588068b7fa62, type: 3}

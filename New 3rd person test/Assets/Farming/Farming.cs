@@ -27,24 +27,21 @@ public class Farming : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // probably null reffing because the first thing hit is a baby plant not the grid. Probably have to add raycast mask
             if (Physics.Raycast(transform.position, bellowPlayer, out hitInfo, Mathf.Infinity) )
             {
                 GridElement tempGridElement = hitInfo.transform.GetComponent<GridElement>();
-                if (tempGridElement.isPlowed && !tempGridElement.hasPlantedCrop)
+                if (tempGridElement != null)
                 {
-                    
-                    Instantiate(seedToCreate, hitInfo.transform);
-                    tempGridElement.hasPlantedCrop = true;
-                }
-                else print("Soil may not be plowed press E to plow or a crop is already planted");
+                    if (tempGridElement.isPlowed && !tempGridElement.hasPlantedCrop)
+                    {
 
+                        Instantiate(seedToCreate, hitInfo.transform);
+                        tempGridElement.hasPlantedCrop = true;
+                    }
+                    else print("Soil may not be plowed press E to plow or a crop is already planted");
 
-               /*if(tempGridElement.isPlowed && tempGridElement.hasPlantedCrop)
-                {
-                    HarvestCrop(tempGridElement);
                 }
-                */
+               
             }
 
         }

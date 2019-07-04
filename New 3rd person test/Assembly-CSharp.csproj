@@ -62,11 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BuyButton.cs" />
+    <Compile Include="Assets\Crop.cs" />
     <Compile Include="Assets\Currency.cs" />
     <Compile Include="Assets\Farming\Farming.cs" />
-    <Compile Include="Assets\Farming\Harvest.cs" />
-    <Compile Include="Assets\Farming\SeedGrowth.cs" />
-    <Compile Include="Assets\Farming\Timer.cs" />
     <Compile Include="Assets\Grid Scripts\Build.cs" />
     <Compile Include="Assets\Grid Scripts\Buildings.cs" />
     <Compile Include="Assets\Grid Scripts\GridElement.cs" />

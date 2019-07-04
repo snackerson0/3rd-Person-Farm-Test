@@ -12,14 +12,12 @@ GameObject:
   - component: {fileID: 33000011754876148}
   - component: {fileID: 23000012642422750}
   - component: {fileID: 64000012883916708}
-  - component: {fileID: 860307394933745361}
-  - component: {fileID: 8474375515556728759}
   - component: {fileID: 6154799922805434018}
   - component: {fileID: 5710809413065423483}
-  - component: {fileID: 5177849385188524944}
+  - component: {fileID: 3160674419768010889}
   m_Layer: 0
   m_Name: Turnip_Plant
-  m_TagString: Untagged
+  m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,34 +95,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300020, guid: b69b26c8b73b8bd49bf243bbe541a2e0, type: 3}
---- !u!114 &860307394933745361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010164499024}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b95e13179aea5e949903b096d9ef85e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantHeight: 15
-  plantItemID: 2
-  isPlantFullyGrown: 0
---- !u!114 &8474375515556728759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010164499024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f11e2f0406b1ad41b811c2ca0273e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFinished: 0
 --- !u!65 &6154799922805434018
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -154,7 +124,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5177849385188524944
+--- !u!114 &3160674419768010889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,7 +133,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010164499024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49a4fdcf6cf8d64b829d0cd898b2881, type: 3}
+  m_Script: {fileID: 11500000, guid: ad6c201509d9cf54e8648c0ed196609e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cropItemID: 4
+  cropName: Turnip
+  isPlantGrown: 0
+  plantHeight: 12
+  timeToGrowCrop: 8

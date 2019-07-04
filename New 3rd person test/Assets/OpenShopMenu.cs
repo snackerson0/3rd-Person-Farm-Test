@@ -21,7 +21,7 @@ public class OpenShopMenu : MonoBehaviour
                 //toggles menu on and off based on if it is currently active
 
                 menu.SetActive(!menu.activeSelf);
-
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }
@@ -31,6 +31,7 @@ public class OpenShopMenu : MonoBehaviour
         if(menu.activeSelf == true)
         {
             menu.SetActive(false);
+            Cursor.lockState= CursorLockMode.Locked;
         }
         else
         {

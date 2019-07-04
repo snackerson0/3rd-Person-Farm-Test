@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         playerInventory.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -29,6 +31,8 @@ public class Player : MonoBehaviour
         ProcessMovement();
         DisplayInventory();
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Cursor.lockState = CursorLockMode.None;
     }
 
     private void ProcessMovement()
@@ -54,13 +58,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) && playerInventory.activeSelf)
         {
             playerInventory.SetActive(false);
+           Cursor.lockState = CursorLockMode.Locked;
 
         }
 
         else if (Input.GetKeyDown(KeyCode.I) && !playerInventory.activeSelf)
         {
             playerInventory.SetActive(true);
-
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

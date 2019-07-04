@@ -12,14 +12,12 @@ GameObject:
   - component: {fileID: 33000011654929274}
   - component: {fileID: 23000010765629750}
   - component: {fileID: 64000011284429378}
-  - component: {fileID: 2076162027422170567}
-  - component: {fileID: 5493600485999204517}
-  - component: {fileID: 9199442467769505789}
   - component: {fileID: 2686602992432978177}
   - component: {fileID: 667149203940879004}
+  - component: {fileID: 1653360166}
   m_Layer: 0
   m_Name: Tomato_Plant 1
-  m_TagString: Untagged
+  m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,47 +95,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300010, guid: b69b26c8b73b8bd49bf243bbe541a2e0, type: 3}
---- !u!114 &2076162027422170567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012235373026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f11e2f0406b1ad41b811c2ca0273e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFinished: 0
---- !u!114 &5493600485999204517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012235373026}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b95e13179aea5e949903b096d9ef85e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantHeight: 7
-  plantItemID: 1
-  isPlantFullyGrown: 0
---- !u!114 &9199442467769505789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012235373026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49a4fdcf6cf8d64b829d0cd898b2881, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cropItemID: 3
 --- !u!65 &2686602992432978177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,3 +124,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1653360166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012235373026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c201509d9cf54e8648c0ed196609e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cropName: Tomato
+  isPlantGrown: 0
+  plantHeight: 6
+  timeToGrowCrop: 5

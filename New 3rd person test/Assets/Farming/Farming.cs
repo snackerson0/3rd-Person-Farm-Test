@@ -5,7 +5,11 @@ using UnityEngine;
 public class Farming : MonoBehaviour
 {
     [SerializeField] public GameObject seedToCreate;
+
+    Crop cropToHarvest;
+
     private Inventory playersInventory;
+
 
     private void Awake()
     {
@@ -16,18 +20,18 @@ public class Farming : MonoBehaviour
     void Update()
     {
         PlantAndHarvestCrops();
-        IsSoilPlowed();
+        PlowSoil();
     }
 
 
     void PlantAndHarvestCrops()
     {
-        Vector3 bellowPlayer = transform.TransformDirection(Vector3.down);
+        Vector3 belowPlayer = transform.TransformDirection(Vector3.down);
         RaycastHit hitInfo;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Physics.Raycast(transform.position, bellowPlayer, out hitInfo, Mathf.Infinity) )
+            if (Physics.Raycast(transform.position, belowPlayer, out hitInfo, Mathf.Infinity) )
             {
                 GridElement tempGridElement = hitInfo.transform.GetComponent<GridElement>();
                 if (tempGridElement != null)
@@ -47,7 +51,7 @@ public class Farming : MonoBehaviour
         }
     }
 
-    bool IsSoilPlowed()
+    void PlowSoil()
     {
         Vector3 bellowPlayer = transform.TransformDirection(Vector3.down);
         RaycastHit hitInfo;
@@ -60,20 +64,18 @@ public class Farming : MonoBehaviour
                 if (!tempElement)
                 {
                     print("No grid element found");
-                    return false;
+                    return;
                 }
 
                 if (!tempElement.isPlowed)
                 {
                     tempElement.isPlowed = true;
-                    return true;
+                    return;
                 }
                 else print("already plowed.");
             }
 
-        }
-
-        return false;
+        }       
     }
 
     public void NewSeedToUse(GameObject newSeed)
@@ -84,25 +86,48 @@ public class Farming : MonoBehaviour
         }
     }
 
-    private void HarvestCrop(GridElement tempGridElement)
+    private void OnTriggerEnter(Collider other)
     {
-        
-        SeedGrowth currentPlantGrowth = tempGridElement.transform.GetComponentInChildren<SeedGrowth>();
-        GameObject currentCrop = currentPlantGrowth.gameObject;
-
-        if (currentPlantGrowth != null)
+        if (other.tag == "Crop")
         {
-            if (currentPlantGrowth.isPlantFullyGrown)
-            {
-                print("The crop has been deleted");
-                Destroy(currentCrop);
-                tempGridElement.hasPlantedCrop = false;
-                currentPlantGrowth.isPlantFullyGrown = false; 
-                playersInventory.AddItem(currentPlantGrowth.plantItemID);
-                currentPlantGrowth = null;
-                currentCrop = null;
-            }
+            cropToHarvest = other.gameObject.GetComponent<Crop>();
+            if (cropToHarvest == null)
+                print("The crop was never given a Crop script");
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.F) && playersInventory != null && cropToHarvest != null && cropToHarvest.isPlantGrown && other.tag == "Crop")
+            HarvestCrop();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (cropToHarvest != null)
+            cropToHarvest = null;
+    }
+
+    private void HarvestCrop()
+    {
+        if (cropToHarvest.cropName == null)
+            print("Name was never given to crop in Crop script");
+
+        playersInventory.AddItem(cropToHarvest.cropName);
+
+        GridElement currentGridElement = cropToHarvest.GetComponentInParent<GridElement>();
+
+        if (currentGridElement != null)
+        {
+            currentGridElement.hasPlantedCrop = false;
+        }
+        else
+        {
+            print(gameObject.name + "cannot find the grid it is attached to.");
+        }
+        print("The crop has been deleted");
+        Destroy(cropToHarvest.gameObject);
+
     }
 }
 

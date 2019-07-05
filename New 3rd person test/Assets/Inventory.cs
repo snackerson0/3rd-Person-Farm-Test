@@ -7,8 +7,9 @@ public class Inventory : MonoBehaviour
     public List<Item> characterItems = new List<Item>();
 
     public ItemDatabase itemDatabase;
-    public UIInventory inventoryUI;
+    public UIInventory inventoryUI, toolbarInventory;
 
+    public bool isInventoryFull = false;
 
     private Farming farming;
 
@@ -64,6 +65,10 @@ public class Inventory : MonoBehaviour
     {
         return characterItems.Find(item => item.ID == itemID);
     }
+    public Item CheckForItem(string itemName)
+    {
+        return characterItems.Find(item => item.itemName == itemName);
+    }
 
     public void RemoveItem(int itemID)
     {
@@ -79,6 +84,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void RemoveItem(string itemName)
+    {
+        Item itemToRemove = CheckForItem(itemName);
+
+        if (itemToRemove != null)
+        {
+            characterItems.Remove(itemToRemove);
+
+            inventoryUI.RemoveItem(itemToRemove);
+
+            print("Removed item: " + itemToRemove.itemName);
+        }
+    }
     public void UseItem(int itemID)
     {
         Item itemToUse = CheckForItem(itemID);
@@ -92,6 +110,34 @@ public class Inventory : MonoBehaviour
         
     }
 
+    public void UseToolbarItem(string itemName)
+    {
+        print("Trying to use toolbar item");
+        Item itemToUse = CheckForItem(itemName);
+
+        if (itemToUse != null)
+        {
+            
+
+            RemoveToolbarItem(itemName);
+        }
+
+    }
+
+    public void RemoveToolbarItem(string itemName)
+    {
+        Item itemToRemove = CheckForItem(itemName);
+
+        if (itemToRemove != null)
+        {
+            characterItems.Remove(itemToRemove);
+
+            toolbarInventory.RemoveItem(itemToRemove);
+
+            print("Removed item: " + itemToRemove.itemName);
+        }
+    }
+
     public void AddQualityItem(string itemName, int qualityToAdd)
     {
         Item itemToAdd = itemDatabase.GetItem(itemName);
@@ -102,11 +148,13 @@ public class Inventory : MonoBehaviour
 
         ItemQuality(newItemToAdd.itemQuality, newItemToAdd);
 
-        inventoryUI.AddNewItem(newItemToAdd);
+        if (!isInventoryFull)
+        {
+            inventoryUI.AddNewItem(newItemToAdd);
+            characterItems.Add(newItemToAdd);
 
-
-        characterItems.Add(newItemToAdd);
-        print("Add the item: " + newItemToAdd.itemName +" with quality " + newItemToAdd.itemQuality);
+            print("Add the item: " + newItemToAdd.itemName + " with quality " + newItemToAdd.itemQuality);
+        }
     }
 
     private void ItemQuality(int currentQuality, Item item)

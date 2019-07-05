@@ -28,7 +28,7 @@ public class Crop : MonoBehaviour
         transform.localScale = new Vector3(1, 1, 1);
 
 
-        collider.size = new Vector3(20,20, 20);
+        collider.size = new Vector3(6,30, 6);
     }
 
 
@@ -46,6 +46,7 @@ public class Crop : MonoBehaviour
     private void IncreasePlantSize()
     {
         transform.localScale = new Vector3(1, plantHeight, 1);
+        collider.size = new Vector3(6,5, 6);
         print("Plant has grown");
     }
 

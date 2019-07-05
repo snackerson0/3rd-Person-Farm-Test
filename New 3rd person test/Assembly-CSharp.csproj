@@ -76,6 +76,7 @@
     <Compile Include="Assets\Resources\Sprites\Items\Item.cs" />
     <Compile Include="Assets\Resources\Sprites\Items\ItemDatabase.cs" />
     <Compile Include="Assets\UI Scripts\ItemFollowMouse.cs" />
+    <Compile Include="Assets\UI Scripts\Toolbar.cs" />
     <Compile Include="Assets\UI Scripts\UIInventory.cs" />
     <Compile Include="Assets\UI Scripts\UIItem.cs" />
     <Compile Include="Assets\UI Scripts\UIItems.cs" />

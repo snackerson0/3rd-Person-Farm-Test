@@ -121,24 +121,27 @@ public class Farming : MonoBehaviour
         // TODO add a quality meter to obtain from the crop based on player performance.
         if (cropToHarvest.cropName == null)
             print("Name was never given to crop in Crop script");
+    
 
 
-        playersInventory.AddQualityItem(cropToHarvest.cropName,cropToHarvest.cropQuality);
+            playersInventory.AddQualityItem(cropToHarvest.cropName, cropToHarvest.cropQuality);
 
-
-        GridElement currentGridElement = cropToHarvest.GetComponentInParent<GridElement>();
-
-        if (currentGridElement != null)
+        if (!playersInventory.isInventoryFull)
         {
-            currentGridElement.hasPlantedCrop = false;
-        }
-        else
-        {
-            print(gameObject.name + "cannot find the grid it is attached to.");
-        }
-        print("The crop has been deleted");
-        Destroy(cropToHarvest.gameObject);
+            GridElement currentGridElement = cropToHarvest.GetComponentInParent<GridElement>();
 
+            if (currentGridElement != null)
+            {
+                currentGridElement.hasPlantedCrop = false;
+            }
+            else
+            {
+                print(gameObject.name + "cannot find the grid it is attached to.");
+            }
+            print("The crop has been deleted");
+
+            Destroy(cropToHarvest.gameObject);
+        }
     }
 
     private void WaterCrop(Collider other)

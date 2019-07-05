@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class Player : MonoBehaviour
     //floats
     [SerializeField] private float characterSpeed = 3.5f;
 
-    
+    [SerializeField] Toolbar toolbar;
 
     private float gravity = 9.81f;
 
@@ -30,7 +31,7 @@ public class Player : MonoBehaviour
     {
         ProcessMovement();
         DisplayInventory();
-
+        UseToolbarItems();
         if (Input.GetKeyDown(KeyCode.Escape))
             Cursor.lockState = CursorLockMode.None;
     }
@@ -67,5 +68,22 @@ public class Player : MonoBehaviour
             playerInventory.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    private void UseToolbarItems()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            print("button 1 was pressed");
+            toolbar.UseToolbarItemSlot(1);
+           
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            
+            
+        }
+
+
     }
 }

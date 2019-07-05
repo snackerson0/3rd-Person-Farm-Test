@@ -100,11 +100,25 @@ public class Inventory : MonoBehaviour
 
         newItemToAdd.itemQuality += qualityToAdd;
 
+        ItemQuality(newItemToAdd.itemQuality, newItemToAdd);
+
         inventoryUI.AddNewItem(newItemToAdd);
 
 
         characterItems.Add(newItemToAdd);
         print("Add the item: " + newItemToAdd.itemName +" with quality " + newItemToAdd.itemQuality);
+    }
+
+    private void ItemQuality(int currentQuality, Item item)
+    {
+        switch (currentQuality)
+        {
+            case 0: item.itemQualityValue = item.itemBaseValue; break;
+
+            case 1: item.itemQualityValue = Mathf.RoundToInt(item.itemBaseValue + (item.itemBaseValue * .25f)); break;
+
+            case 2: item.itemQualityValue = Mathf.RoundToInt(item.itemBaseValue + (item.itemBaseValue * .50f)); break;
+        }
     }
 }
 

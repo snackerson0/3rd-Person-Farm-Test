@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -120,7 +121,8 @@ public class Farming : MonoBehaviour
         // TODO add a quality meter to obtain from the crop based on player performance.
         if (cropToHarvest.cropName == null)
             print("Name was never given to crop in Crop script");
-        
+
+
         playersInventory.AddQualityItem(cropToHarvest.cropName,cropToHarvest.cropQuality);
 
 
@@ -147,6 +149,8 @@ public class Farming : MonoBehaviour
 
         print("The Plant has been water");
     }
+
+ 
 }
 
 

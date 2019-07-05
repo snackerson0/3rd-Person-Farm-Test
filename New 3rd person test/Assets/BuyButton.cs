@@ -11,7 +11,7 @@ public class BuyButton : MonoBehaviour
     [SerializeField] int itemToSellID;
     ItemDatabase itemDatabase;
 
-    Item currentAssignedItem;
+    Item currentAssignedItem, playerItem;
 
     [SerializeField]Currency playerCurrency;
     private void Awake()
@@ -57,11 +57,20 @@ public class BuyButton : MonoBehaviour
         {
             if (playerCurrency != null && PlayerHasItem(itemToSellID))
             {
-                playerInventory.RemoveItem(itemToSellID);
-                playerCurrency.AddMoneyToPlayer(currentAssignedItem.itemBaseValue);
-                currentAssignedItem = null;
-               
+                if (playerItem.itemQuality == 0)
+                {
+                    playerCurrency.AddMoneyToPlayer(currentAssignedItem.itemBaseValue);
+                    playerInventory.RemoveItem(itemToSellID);                    
+                    currentAssignedItem = null;
+                }
                 
+                else if(playerItem.itemQuality > 0)
+                {
+                    playerCurrency.AddMoneyToPlayer(playerItem.itemQualityValue);
+                    playerInventory.RemoveItem(itemToSellID);                   
+                    currentAssignedItem = null;
+                }
+
             }
             else
             {
@@ -75,6 +84,7 @@ public class BuyButton : MonoBehaviour
        Item itemToSearchFor = playerInventory.characterItems.Find(item => item.ID == itemID);
         if (itemToSearchFor != null)
         {
+            playerItem = playerInventory.characterItems.Find(item => item.ID == itemID);
             return true;
         }
         else

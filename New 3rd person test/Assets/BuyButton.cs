@@ -36,10 +36,10 @@ public class BuyButton : MonoBehaviour
 
         if (currentAssignedItem != null)
         {
-            if (playerCurrency.GetPlayersBalance() >= currentAssignedItem.itemValue)
+            if (playerCurrency.GetPlayersBalance() >= currentAssignedItem.itemBaseValue)
             {
                 playerInventory.AddItem(itemIDNumber);
-                playerCurrency.DeductMoneyFromPlayer(currentAssignedItem.itemValue);
+                playerCurrency.DeductMoneyFromPlayer(currentAssignedItem.itemBaseValue);
                 currentAssignedItem = null;
             }
             else
@@ -58,7 +58,7 @@ public class BuyButton : MonoBehaviour
             if (playerCurrency != null && PlayerHasItem(itemToSellID))
             {
                 playerInventory.RemoveItem(itemToSellID);
-                playerCurrency.AddMoneyToPlayer(currentAssignedItem.itemValue);
+                playerCurrency.AddMoneyToPlayer(currentAssignedItem.itemBaseValue);
                 currentAssignedItem = null;
                
                 

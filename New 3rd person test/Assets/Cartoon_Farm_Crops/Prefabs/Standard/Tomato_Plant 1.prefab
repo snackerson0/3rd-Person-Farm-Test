@@ -138,5 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cropName: Tomato
   isPlantGrown: 0
+  hasBeenWatered: 0
   plantHeight: 6
   timeToGrowCrop: 5
+  cropQuality: 0

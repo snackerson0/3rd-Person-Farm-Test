@@ -100,6 +100,13 @@ public class Farming : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) && playersInventory != null && cropToHarvest != null && cropToHarvest.isPlantGrown && other.tag == "Crop")
             HarvestCrop();
+
+        if (Input.GetKeyDown(KeyCode.Q) && cropToHarvest != null && !cropToHarvest.isPlantGrown && other.tag == "Crop")
+            WaterCrop(other);
+
+
+        if (Input.GetKeyDown(KeyCode.Q) && cropToHarvest != null && cropToHarvest.isPlantGrown && other.tag == "Crop")
+            print("You cannot water an already grown plant");
     }
 
     private void OnTriggerExit(Collider other)
@@ -110,10 +117,12 @@ public class Farming : MonoBehaviour
 
     private void HarvestCrop()
     {
+        // TODO add a quality meter to obtain from the crop based on player performance.
         if (cropToHarvest.cropName == null)
             print("Name was never given to crop in Crop script");
+        
+        playersInventory.AddQualityItem(cropToHarvest.cropName,cropToHarvest.cropQuality);
 
-        playersInventory.AddItem(cropToHarvest.cropName);
 
         GridElement currentGridElement = cropToHarvest.GetComponentInParent<GridElement>();
 
@@ -128,6 +137,15 @@ public class Farming : MonoBehaviour
         print("The crop has been deleted");
         Destroy(cropToHarvest.gameObject);
 
+    }
+
+    private void WaterCrop(Collider other)
+    {
+        Crop currentCrop = other.gameObject.GetComponent<Crop>();
+
+        currentCrop.hasBeenWatered = true;
+
+        print("The Plant has been water");
     }
 }
 

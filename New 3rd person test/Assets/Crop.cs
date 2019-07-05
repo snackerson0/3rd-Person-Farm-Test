@@ -6,14 +6,29 @@ public class Crop : MonoBehaviour
 {
     public string cropName;
 
-    public bool isPlantGrown = false;
+    public bool isPlantGrown = false, hasBeenWatered = false;
 
     [SerializeField]private int plantHeight, timeToGrowCrop;
+    public int cropQuality;
+
+    BoxCollider collider;
+    Vector3 boxColliderSize;
+
+
+    private void Awake()
+    {
+        collider = GetComponent<BoxCollider>();
+         boxColliderSize = collider.size;
+    }
+
 
     void Start()
     {
         StartCoroutine(PlantGrowth(timeToGrowCrop));
         transform.localScale = new Vector3(1, 1, 1);
+
+
+        collider.size = new Vector3(20,20, 20);
     }
 
 
@@ -21,6 +36,10 @@ public class Crop : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToGrow);
         IncreasePlantSize();
+
+        if (hasBeenWatered)
+            cropQuality++;
+
         isPlantGrown = true;
     }
 

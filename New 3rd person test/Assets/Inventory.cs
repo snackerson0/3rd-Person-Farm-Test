@@ -91,5 +91,20 @@ public class Inventory : MonoBehaviour
         }
         
     }
+
+    public void AddQualityItem(string itemName, int qualityToAdd)
+    {
+        Item itemToAdd = itemDatabase.GetItem(itemName);
+
+        Item newItemToAdd = new Item(itemToAdd);
+
+        newItemToAdd.itemQuality += qualityToAdd;
+
+        inventoryUI.AddNewItem(newItemToAdd);
+
+
+        characterItems.Add(newItemToAdd);
+        print("Add the item: " + newItemToAdd.itemName +" with quality " + newItemToAdd.itemQuality);
+    }
 }
 

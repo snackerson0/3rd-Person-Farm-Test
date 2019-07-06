@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Toolbar : UIInventory
 {
-    UIInventory uIInventory;
 
     Inventory playerInventory;
     // Start is called before the first frame update
+
+new void Awake()
+    {
+        base.Awake();
+    }
+
     void Start()
     {
         
-        uIInventory = GetComponent<UIInventory>();
+      
 
         playerInventory = FindObjectOfType<Inventory>();
     }
@@ -20,7 +25,7 @@ public class Toolbar : UIInventory
     {
         int i = toolbarNumber - 1;
 
-       Item itemToUse =  uIInventory.uiItems[i].item;
+       Item itemToUse =  uiItems[i].item;
 
         if (itemToUse != null)
             playerInventory.RemoveItem(itemToUse.itemName);
@@ -40,7 +45,7 @@ public class Toolbar : UIInventory
         {
             try
             {
-                UpdateItem(uIInventory.uiItems.FindIndex(i => i.item == null), item);
+                UpdateItem(uiItems.FindIndex(i => i.item == null), item);
             }
             catch
             {
@@ -54,12 +59,29 @@ public class Toolbar : UIInventory
     {
         try
         {
-            UpdateItem(uIInventory.uiItems.FindIndex(i => i.item == item), null);
+            UpdateItem(uiItems.FindIndex(i => i.item == item), null);
             playerInventory.isInventoryFull = false;
         }
         catch
         {
             print("You do not have that item");
+        }
+    }
+
+    override public void UpdateInventory()
+    {
+        try
+        {
+            print("trying to find a null toolbar item");
+            Item nullItem =uiItems[uiItems.FindIndex(i => i.item == null)].GetItemInSlot();
+            playerInventory.isToolbarFull = false;
+            print("passed finding null toolbar item");
+        }
+        catch
+        {
+            print("Didn't find a null toolbar item");
+            if (!playerInventory.isToolbarFull)
+                playerInventory.isToolbarFull = true;
         }
     }
 }

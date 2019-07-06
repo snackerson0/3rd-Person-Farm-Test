@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -7,7 +8,8 @@ public class Inventory : MonoBehaviour
     public List<Item> characterItems = new List<Item>();
 
     public ItemDatabase itemDatabase;
-    public UIInventory inventoryUI, toolbarInventory;
+    public UIInventory inventoryUI;
+    public Toolbar toolbarInventory;
 
     public bool isInventoryFull = false, isToolbarFull = false;
 
@@ -218,28 +220,13 @@ public class Inventory : MonoBehaviour
 
     public void UpdateInventory()
     {
-        //UIItem uiItem = toolbarInventory.uiItems.Find(item => item.item == null);
-       // UIItem uiInventoryItem = inventoryUI.uiItems.Find(item => item.item == null);
-
         inventoryUI.UpdateInventory();
-           /* if (!uiItem)
-            {
-                isToolbarFull = false;
-            print("toolbar null check passed");
-            return;
-
-            }
+        toolbarInventory.UpdateInventory();
+         
+            
 
 
 
-
-        if (uiInventoryItem == null)
-        {
-            isInventoryFull = false;
-            print("inventroy passed null check");
-        }
-            return;
-        */
     }
 }
 

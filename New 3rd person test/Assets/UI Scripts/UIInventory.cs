@@ -11,7 +11,7 @@ public class UIInventory : MonoBehaviour
    [SerializeField] private int numberOfSlots;
 
 
-    void Awake()
+   protected void Awake()
     {
         for (int i = 0; i < numberOfSlots; i++)
         {
@@ -60,14 +60,14 @@ public class UIInventory : MonoBehaviour
     {
         try
         {
-            print("trying to find a null item");
+            print("trying to find a null inventory item");
             Item nullItem = uiItems[uiItems.FindIndex(i => i.item == null)].GetItemInSlot();
             playerInventory.isInventoryFull = false;
-            print("passed finding null item");
+            print("passed finding null inventory item");
         }
         catch
         {
-            print("Didn't find a null item");
+            print("Didn't find a null inventory item");
             if(!playerInventory.isInventoryFull)
             playerInventory.isInventoryFull = true;
         }

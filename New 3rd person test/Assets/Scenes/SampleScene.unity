@@ -536,8 +536,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 1650908328}
   inventoryUI: {fileID: 2063507591}
-  toolbarInventory: {fileID: 704180156}
+  toolbarInventory: {fileID: 704180159}
   isInventoryFull: 0
+  isToolbarFull: 0
 --- !u!114 &245069065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,7 +1009,6 @@ GameObject:
   - component: {fileID: 704180155}
   - component: {fileID: 704180158}
   - component: {fileID: 704180157}
-  - component: {fileID: 704180156}
   - component: {fileID: 704180159}
   m_Layer: 5
   m_Name: ToolbarPanel
@@ -1038,23 +1038,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -137}
   m_SizeDelta: {x: 331.6, y: 314}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &704180156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704180154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f97d5c5f10dc224fa2a47a44a61e99f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiItems: []
-  slotPrefab: {fileID: 4121570910070911905, guid: 7b17bf5c7ba06ed4ab05008ac0591a37,
-    type: 3}
-  slotPanel: {fileID: 1831720240}
-  numberOfSlots: 6
 --- !u!114 &704180157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1104,6 +1087,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3679b604dbc4d41be9f1190598909f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiItems: []
+  slotPrefab: {fileID: 4121570910070911905, guid: 7b17bf5c7ba06ed4ab05008ac0591a37,
+    type: 3}
+  slotPanel: {fileID: 1831720240}
+  numberOfSlots: 6
 --- !u!4 &714992204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011223534310, guid: 30319199574ca3644bf3898bb5cac486,

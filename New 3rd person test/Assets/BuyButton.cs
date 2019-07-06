@@ -62,14 +62,14 @@ public class BuyButton : MonoBehaviour
                 if (playerItem.itemQuality == 0)
                 {
                     playerCurrency.AddMoneyToPlayer(currentAssignedItem.itemBaseValue);
-                    playerInventory.UseToolbarItem(playerItem.itemName);                  
+                    playerInventory.RemoveItem(playerItem.itemName);                  
                     currentAssignedItem = null;
                 }
                 
                 else if(playerItem.itemQuality > 0)
                 {
                     playerCurrency.AddMoneyToPlayer(playerItem.itemQualityValue);
-                    playerInventory.UseToolbarItem(playerItem.itemName);                   
+                    playerInventory.RemoveItem(playerItem.itemName);                   
                     currentAssignedItem = null;
                 }
 

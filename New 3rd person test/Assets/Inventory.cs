@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     public ItemDatabase itemDatabase;
     public UIInventory inventoryUI, toolbarInventory;
 
-    public bool isInventoryFull = false;
+    public bool isInventoryFull = false, isToolbarFull = false;
 
     private Farming farming;
 
@@ -20,24 +20,13 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        AddItem("cartoon seeds");
-        AddItem("Gold Ore");
+       
     }
 
-    int testUseItem = 1;
-    bool firstUsedItem = false;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !firstUsedItem)
-        {
-            UseItem(2);
-            firstUsedItem = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.P) && firstUsedItem)
-        {
-            UseItem(1);
-        }
+     
     }
     public void AddItem(int ID)
     {
@@ -70,32 +59,7 @@ public class Inventory : MonoBehaviour
         return characterItems.Find(item => item.itemName == itemName);
     }
 
-    public void RemoveItem(int itemID)
-    {
-        Item itemToRemove = CheckForItem(itemID);
 
-        if (itemToRemove != null)
-        {
-            characterItems.Remove(itemToRemove);
-
-            inventoryUI.RemoveItem(itemToRemove);
-
-            print("Removed item: "+ itemToRemove.itemName);
-        }
-    }
-
-    public void RemoveItem(string itemName)
-    {
-        Item itemToRemove = CheckForItem(itemName);
-        if (itemToRemove != null)
-        {
-            characterItems.Remove(itemToRemove);
-
-            inventoryUI.RemoveItem(itemToRemove);
-
-            print("Removed item: " + itemToRemove.itemName);
-        }
-    }
     public void UseItem(int itemID)
     {
         Item itemToUse = CheckForItem(itemID);
@@ -108,44 +72,44 @@ public class Inventory : MonoBehaviour
         }
         
     }
-
-    public void UseToolbarItem(string itemName)
+    public void RemoveItem(int itemNumber)
     {
-        print("Trying to use toolbar item");
-        Item itemToUse = CheckForItem(itemName);
+        Item itemToRemove = CheckForItem(itemNumber);
 
-        if (itemToUse != null)
+        if (itemToRemove != null)
         {
-            RemoveToolbarItem(itemName);
-           
-        }
+            UIItem uiItem = toolbarInventory.uiItems.Find(item => item.item == itemToRemove);
+            UIItem uiInventoryItem = inventoryUI.uiItems.Find(item => item.item == itemToRemove);
+            try
+            {
+                if (uiItem.item != null)
+                {
+                    characterItems.Remove(itemToRemove);
+                    toolbarInventory.RemoveItem(itemToRemove);
+                    print("Removed item: " + itemToRemove.itemName);
+                    return;
+                }
+            }
+            catch
+            {
+                if (uiInventoryItem.item != null)
+                {
+                    {
+                        characterItems.Remove(itemToRemove);
+                        inventoryUI.RemoveItem(itemToRemove);
+                        print("Removed item: " + itemToRemove.itemName);
+                        return;
+                    }
+                }
+            }
 
-    }
-
-    private void SearchInventoryAndToolbar(Item itemToSearchFor)
-    {
-        RemoveToolbarItem(itemToSearchFor.itemName);
-      /*UIItem uiItem = inventoryUI.uiItems.Find(item => item.item == itemToSearchFor);
-        if (uiItem.item != null)
-        {
-            print("We found the item in the inventory");
-            return uiItem.item;
+            print("The item could not be found in the inventory but the player has the item in inventory");
         }
         else
-        {
-            uiItem = toolbarInventory.uiItems.Find(item => item.item == itemToSearchFor);
-
-            if (uiItem.item != null)
-            {
-                print("We found the item in the toolbar");
-                return uiItem.item;
-            }
-        }
-        return null;*/
-
+            print("The player does not have that item to remove");
     }
 
-    public void RemoveToolbarItem(string itemName)
+    public void RemoveItem(string itemName)
     {
         Item itemToRemove = CheckForItem(itemName);
 
@@ -170,15 +134,54 @@ public class Inventory : MonoBehaviour
                         characterItems.Remove(itemToRemove);
                         inventoryUI.RemoveItem(itemToRemove);
                         print("Removed item: " + itemToRemove.itemName);
+                        return;
                     }
                 }
             }
-            //else
-             //   print("The item could not be found in the inventory but the player has the item in inventory");
+           
+               print("The item could not be found in the inventory but the player has the item in inventory");
         }
         else
             print("The player does not have that item to remove");
     }
+
+    public void RemoveItem(Item itemToBeRemoved)
+    {
+        Item itemToRemove = CheckForItem(itemToBeRemoved.itemName);
+
+        if (itemToRemove != null)
+        {
+            UIItem uiItem = toolbarInventory.uiItems.Find(item => item.item == itemToRemove);
+            UIItem uiInventoryItem = inventoryUI.uiItems.Find(item => item.item == itemToRemove);
+            try
+            {
+                if (uiItem.item != null)
+                {
+                    characterItems.Remove(itemToRemove);
+                    toolbarInventory.RemoveItem(itemToRemove);
+                    print("Removed item: " + itemToRemove.itemName);
+                    return;
+                }
+            }
+            catch
+            {
+                if (uiInventoryItem.item != null)
+                {
+                    {
+                        characterItems.Remove(itemToRemove);
+                        inventoryUI.RemoveItem(itemToRemove);
+                        print("Removed item: " + itemToRemove.itemName);
+                        return;
+                    }
+                }
+            }
+
+            print("The item could not be found in the inventory but the player has the item in inventory");
+        }
+        else
+            print("The player does not have that item to remove");
+    }
+
 
     public void AddQualityItem(string itemName, int qualityToAdd)
     {
@@ -189,6 +192,8 @@ public class Inventory : MonoBehaviour
         newItemToAdd.itemQuality += qualityToAdd;
 
         ItemQuality(newItemToAdd.itemQuality, newItemToAdd);
+
+        UpdateInventory(); 
 
         if (!isInventoryFull)
         {
@@ -209,6 +214,32 @@ public class Inventory : MonoBehaviour
 
             case 2: item.itemQualityValue = Mathf.RoundToInt(item.itemBaseValue + (item.itemBaseValue * .50f)); break;
         }
+    }
+
+    public void UpdateInventory()
+    {
+        //UIItem uiItem = toolbarInventory.uiItems.Find(item => item.item == null);
+       // UIItem uiInventoryItem = inventoryUI.uiItems.Find(item => item.item == null);
+
+        inventoryUI.UpdateInventory();
+           /* if (!uiItem)
+            {
+                isToolbarFull = false;
+            print("toolbar null check passed");
+            return;
+
+            }
+
+
+
+
+        if (uiInventoryItem == null)
+        {
+            isInventoryFull = false;
+            print("inventroy passed null check");
+        }
+            return;
+        */
     }
 }
 

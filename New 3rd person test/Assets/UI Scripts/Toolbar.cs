@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Toolbar : MonoBehaviour
+public class Toolbar : UIInventory
 {
     UIInventory uIInventory;
 
@@ -23,7 +23,7 @@ public class Toolbar : MonoBehaviour
        Item itemToUse =  uIInventory.uiItems[i].item;
 
         if (itemToUse != null)
-            playerInventory.UseToolbarItem(itemToUse.itemName);
+            playerInventory.RemoveItem(itemToUse.itemName);
 
         else
             print("There is no item in toolbar slot " + toolbarNumber);
@@ -32,5 +32,34 @@ public class Toolbar : MonoBehaviour
     void Update()
     {
         
+    }
+
+     override public void AddNewItem(Item item)
+    {
+        if (!playerInventory.isToolbarFull)
+        {
+            try
+            {
+                UpdateItem(uIInventory.uiItems.FindIndex(i => i.item == null), item);
+            }
+            catch
+            {
+                playerInventory.isToolbarFull = true;
+                print("The item was not added. ToolBar is full");
+            }
+        }
+    }
+
+   override public void RemoveItem(Item item)
+    {
+        try
+        {
+            UpdateItem(uIInventory.uiItems.FindIndex(i => i.item == item), null);
+            playerInventory.isInventoryFull = false;
+        }
+        catch
+        {
+            print("You do not have that item");
+        }
     }
 }

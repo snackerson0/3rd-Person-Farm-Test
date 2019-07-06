@@ -18,7 +18,7 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
 
         UpdateItemSlot(null);
 
-        
+        inventory = FindObjectOfType<Inventory>();
     }
 
     void Update()
@@ -54,6 +54,7 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
                 Item clone = new Item(selectedItem.item);
                 selectedItem.UpdateItemSlot(this.item);
                 UpdateItemSlot(clone);
+
                 
                 
             }
@@ -62,8 +63,7 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
                 
                 selectedItem.UpdateItemSlot(this.item);
                 UpdateItemSlot(null);
-                
-                
+                           
             }
 
         }
@@ -82,5 +82,10 @@ public class UIItem : MonoBehaviour, IPointerDownHandler
 
 
         }
+    }
+
+    public Item GetItemInSlot()
+    {
+        return item;
     }
 }

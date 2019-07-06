@@ -27,20 +27,22 @@ public class UIInventory : MonoBehaviour
         uiItems[slot].UpdateItemSlot(item);
     }
 
-    public void AddNewItem(Item item)
+    virtual public void AddNewItem(Item item)
     {
         try
         {
             UpdateItem(uiItems.FindIndex(i => i.item == null), item);
+            playerInventory.isInventoryFull = false;
         }
         catch
         {
             playerInventory.isInventoryFull = true;
             print("The item was not added. Inventory is full");
         }
+       
     }
 
-    public void RemoveItem(Item item)
+   virtual public void RemoveItem(Item item)
     {
         try
         {
@@ -51,6 +53,23 @@ public class UIInventory : MonoBehaviour
         {
 
             print("You do not have that item");
+        }
+    }
+
+    virtual public void UpdateInventory()
+    {
+        try
+        {
+            print("trying to find a null item");
+            Item nullItem = uiItems[uiItems.FindIndex(i => i.item == null)].GetItemInSlot();
+            playerInventory.isInventoryFull = false;
+            print("passed finding null item");
+        }
+        catch
+        {
+            print("Didn't find a null item");
+            if(!playerInventory.isInventoryFull)
+            playerInventory.isInventoryFull = true;
         }
     }
 }

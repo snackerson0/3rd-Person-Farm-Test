@@ -13,12 +13,14 @@ public class BuyButton : MonoBehaviour
 
     Item currentAssignedItem, playerItem;
 
+    Toolbar toolbar;
+
     [SerializeField]Currency playerCurrency;
     private void Awake()
     {
         playerInventory = FindObjectOfType<Inventory>();
         itemDatabase = FindObjectOfType<ItemDatabase>();
-
+        toolbar = FindObjectOfType<Toolbar>();
     }
     void Start()
     {
@@ -60,14 +62,14 @@ public class BuyButton : MonoBehaviour
                 if (playerItem.itemQuality == 0)
                 {
                     playerCurrency.AddMoneyToPlayer(currentAssignedItem.itemBaseValue);
-                    playerInventory.RemoveItem(itemToSellID);                    
+                    playerInventory.UseToolbarItem(playerItem.itemName);                  
                     currentAssignedItem = null;
                 }
                 
                 else if(playerItem.itemQuality > 0)
                 {
                     playerCurrency.AddMoneyToPlayer(playerItem.itemQualityValue);
-                    playerInventory.RemoveItem(itemToSellID);                   
+                    playerInventory.UseToolbarItem(playerItem.itemName);                   
                     currentAssignedItem = null;
                 }
 

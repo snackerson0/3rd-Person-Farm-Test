@@ -75,15 +75,37 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             print("button 1 was pressed");
-            toolbar.UseToolbarItemSlot(1);
-           
+            toolbar.UseToolbarItemSlot(1);   
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            
-            
+            print("button 2 was pressed");
+            toolbar.UseToolbarItemSlot(2);
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            print("button 3 was pressed");
+            toolbar.UseToolbarItemSlot(3);
+        }
 
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            print("button 4 was pressed");
+            toolbar.UseToolbarItemSlot(4);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            print("button 5 was pressed");
+            toolbar.UseToolbarItemSlot(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            print("button 6 was pressed");
+            toolbar.UseToolbarItemSlot(6);
+        }
     }
 }

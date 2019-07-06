@@ -46,9 +46,10 @@ public class UIInventory : MonoBehaviour
         {
             UpdateItem(uiItems.FindIndex(i => i.item == item), null);
             playerInventory.isInventoryFull = false;
-        }
+        }     
         catch
         {
+
             print("You do not have that item");
         }
     }

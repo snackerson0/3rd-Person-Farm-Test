@@ -38,7 +38,7 @@ public class BuyButton : MonoBehaviour
 
         if (currentAssignedItem != null)
         {
-            if (playerCurrency.GetPlayersBalance() >= currentAssignedItem.itemBaseValue)
+            if (playerCurrency.GetPlayersBalance() >= currentAssignedItem.itemBaseValue && !playerInventory.isInventoryFull || !playerInventory.isToolbarFull)
             {
                 playerInventory.AddItem(itemIDNumber);
                 playerCurrency.DeductMoneyFromPlayer(currentAssignedItem.itemBaseValue);
@@ -46,7 +46,7 @@ public class BuyButton : MonoBehaviour
             }
             else
             {
-                print("You broke boi.");
+                print("You don't have enough money or your inventory/toolbar are both full.");
             }
         }
     }

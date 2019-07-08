@@ -196,13 +196,20 @@ public class Inventory : MonoBehaviour
         ItemQuality(newItemToAdd.itemQuality, newItemToAdd);
 
         UpdateInventory(); 
+        if(!isToolbarFull)
+        {
+            toolbarInventory.AddNewItem(newItemToAdd);
+                characterItems.Add(newItemToAdd);
 
-        if (!isInventoryFull)
+                print("Add the item: " + newItemToAdd.itemName + " with quality " + newItemToAdd.itemQuality + "to inventory");
+        }
+
+        else if (!isInventoryFull)
         {
             inventoryUI.AddNewItem(newItemToAdd);
             characterItems.Add(newItemToAdd);
 
-            print("Add the item: " + newItemToAdd.itemName + " with quality " + newItemToAdd.itemQuality);
+            print("Add the item: " + newItemToAdd.itemName + " with quality " + newItemToAdd.itemQuality + "to inventory");
         }
     }
 

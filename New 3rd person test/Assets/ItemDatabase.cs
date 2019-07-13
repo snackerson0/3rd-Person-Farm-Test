@@ -24,7 +24,7 @@ public class ItemDatabase : MonoBehaviour
     }
 
     public List<Item> items = new List<Item>();
-    void BuildDatabase()
+   virtual protected void BuildDatabase()
     {
         items = new List<Item>()
         {/*

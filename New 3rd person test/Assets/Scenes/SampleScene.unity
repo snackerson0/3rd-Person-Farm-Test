@@ -534,6 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e07fa06a4aa2a44f8af138ecd072a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedDatabase: {fileID: 0}
   itemDatabase: {fileID: 1650908328}
   inventoryUI: {fileID: 2063507591}
   toolbarInventory: {fileID: 704180159}
@@ -2212,6 +2213,8 @@ GameObject:
   - component: {fileID: 1650908327}
   - component: {fileID: 1650908326}
   - component: {fileID: 1650908328}
+  - component: {fileID: 1650908329}
+  - component: {fileID: 1650908330}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2303,6 +2306,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnipSeed: {fileID: 1816237492}
   tomatoSeed: {fileID: 1653360156}
+--- !u!114 &1650908329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650908325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c596b217db34cb84283ec8a306381189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnipSeed: {fileID: 0}
+  tomatoSeed: {fileID: 0}
+--- !u!114 &1650908330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650908325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3d84c453a1d9f41b3b27fee139cf8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1653360156 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1000012235373026, guid: 5141c6b04a08c164d98e23a935141eb0,

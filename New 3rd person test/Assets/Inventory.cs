@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public List<Item> characterItems = new List<Item>();
 
+    public SeedDatabase seedDatabase;
     public ItemDatabase itemDatabase;
     public UIInventory inventoryUI;
     public Toolbar toolbarInventory;
@@ -18,11 +19,17 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         farming = GetComponent<Farming>();
+        seedDatabase = FindObjectOfType<SeedDatabase>();
     }
 
     void Start()
     {
-       
+        Item itemToAdd = seedDatabase.GetItem(2);
+        inventoryUI.AddNewItem(itemToAdd);
+
+
+        characterItems.Add(itemToAdd);
+        print("Add the item: " + itemToAdd.itemName);
     }
 
 
@@ -32,7 +39,7 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(int ID)
     {
-        Item itemToAdd = itemDatabase.GetItem(ID);
+        Item itemToAdd = seedDatabase.GetItem(ID);
         inventoryUI.AddNewItem(itemToAdd);
 
 
@@ -51,6 +58,15 @@ public class Inventory : MonoBehaviour
         print("Add the item: " + itemToAdd.itemName);
     }
 
+    public void AddItem(Item item)
+    {
+       
+        inventoryUI.AddNewItem(item);
+
+
+        characterItems.Add(item);
+        print("Add the item: " + item.itemName);
+    }
 
     public Item CheckForItem(int itemID)
     {

@@ -28,7 +28,7 @@ new void Awake()
        Item itemToUse =  uiItems[i].item;
 
         if (itemToUse != null)
-            playerInventory.RemoveItem(itemToUse.itemName);
+            UseItems.Use(itemToUse);
 
         else
             print("There is no item in toolbar slot " + toolbarNumber);

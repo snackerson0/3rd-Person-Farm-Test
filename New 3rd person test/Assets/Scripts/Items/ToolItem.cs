@@ -2,16 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeedItem : Item
+public class ToolItem : Item
 {
-    Inventory playerInventory;
-
-    void Start()
-    {
-        
-    }
-
-    public SeedItem(int ID, string itemName, string description, int itemBaseValue, int itemQuality, GameObject prefab, Dictionary<string, int> stats)
+    // Start is called before the first frame update
+    public ToolItem(int ID, string itemName, string description, int itemBaseValue, int itemQuality, GameObject prefab, Dictionary<string, int> stats)
     {
         this.ID = ID;
         this.itemName = itemName;
@@ -23,11 +17,6 @@ public class SeedItem : Item
         this.icon = Resources.Load<Sprite>("Sprites/Items/" + itemName);
         itemType = "Seed";
 
-        SetSeedItem(this);
-    }
-
-    public override void UseItem()
-    {
-        
+        SetToolItem(this);
     }
 }

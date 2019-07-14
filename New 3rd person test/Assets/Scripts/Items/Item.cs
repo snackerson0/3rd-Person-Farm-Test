@@ -7,17 +7,16 @@ using UnityEngine;
 public class Item 
 {
     public SeedItem seedItem;
-    Inventory playerInventory;
-    public int ID;
-    public string itemType;
-    public string itemName;
-    public string description;
+    public ToolItem toolItem;
+    
+    public string itemType,itemName,description;
+
     public GameObject prefab;
     public Sprite icon;
-    public int itemBaseValue, itemQualityValue;
+    public int itemBaseValue, itemQualityValue,itemQuality,ID;
     public Dictionary<string, int> stats = new Dictionary<string, int>();
-    public int itemQuality;
 
+  
     protected Item()
     {
         return;
@@ -54,13 +53,13 @@ public class Item
         return;
     }
 
-    public void SetPlayerInventoryRef(Inventory playerInventory)
-    {
-        this.playerInventory = playerInventory;
-    }
 
     protected void SetSeedItem(SeedItem seedItem)
     {
         this.seedItem = seedItem;
+    }
+    protected void SetToolItem(ToolItem toolItem)
+    {
+        this.toolItem = toolItem;
     }
 }

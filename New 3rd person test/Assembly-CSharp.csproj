@@ -61,28 +61,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BuyButton.cs" />
-    <Compile Include="Assets\Crop.cs" />
-    <Compile Include="Assets\Currency.cs" />
-    <Compile Include="Assets\Farming\Farming.cs" />
-    <Compile Include="Assets\Grid Scripts\Build.cs" />
-    <Compile Include="Assets\Grid Scripts\Buildings.cs" />
-    <Compile Include="Assets\Grid Scripts\GridElement.cs" />
-    <Compile Include="Assets\Inventory.cs" />
-    <Compile Include="Assets\ItemDatabase.cs" />
-    <Compile Include="Assets\LookX.cs" />
-    <Compile Include="Assets\LookY.cs" />
-    <Compile Include="Assets\OpenShopMenu.cs" />
-    <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\Resources\Sprites\Items\Item.cs" />
-    <Compile Include="Assets\SeedDatabase.cs" />
-    <Compile Include="Assets\SeedItem.cs" />
-    <Compile Include="Assets\UI Scripts\ItemFollowMouse.cs" />
-    <Compile Include="Assets\UI Scripts\Toolbar.cs" />
-    <Compile Include="Assets\UI Scripts\UIInventory.cs" />
-    <Compile Include="Assets\UI Scripts\UIItem.cs" />
-    <Compile Include="Assets\UI Scripts\UIItems.cs" />
-    <Compile Include="Assets\UseItems.cs" />
+    <Compile Include="Assets\Scripts\Databases\ItemDatabase.cs" />
+    <Compile Include="Assets\Scripts\Databases\SeedDatabase.cs" />
+    <Compile Include="Assets\Scripts\Databases\ToolDatabase.cs" />
+    <Compile Include="Assets\Scripts\Farming\Crop.cs" />
+    <Compile Include="Assets\Scripts\Farming\Farming.cs" />
+    <Compile Include="Assets\Scripts\Grid Scripts\Build.cs" />
+    <Compile Include="Assets\Scripts\Grid Scripts\Buildings.cs" />
+    <Compile Include="Assets\Scripts\Grid Scripts\GridElement.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\SeedItem.cs" />
+    <Compile Include="Assets\Scripts\Items\ToolItem.cs" />
+    <Compile Include="Assets\Scripts\Items\UseItems.cs" />
+    <Compile Include="Assets\Scripts\Player\Currency.cs" />
+    <Compile Include="Assets\Scripts\Player\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Player\LookX.cs" />
+    <Compile Include="Assets\Scripts\Player\LookY.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\Shops\BuyButton.cs" />
+    <Compile Include="Assets\Scripts\Shops\OpenShopMenu.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\ItemFollowMouse.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\Toolbar.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIInventory.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIItem.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIItems.cs" />
     <None Include="Assets\Cartoon_Farm_Crops\README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/snack/Documents/GitHub/3rd-Person-Farm-Test/New 3rd person test/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

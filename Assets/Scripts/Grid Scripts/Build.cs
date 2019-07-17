@@ -97,9 +97,10 @@ public class Build : MonoBehaviour
         print("The grid was not full and is now full.");
         CurSelectedGridElement.isOccupied = true;
 
+        Vector3 locationToPlaceAt = new Vector3(hit.transform.position.x, 1, hit.transform.position.z);
         
-        GameObject createdObject = Instantiate(objectToCreate, hit.transform.position, Quaternion.identity);
-        //createdObject.transform.SetParent(CurSelectedGridElement.transform, false);
+        GameObject createdObject = Instantiate(objectToCreate, locationToPlaceAt, Quaternion.identity);
+        createdObject.transform.SetParent(CurSelectedGridElement.transform, true);
 
         //GameObject createdItem = CurSelectedGridElement.GetComponentInChildren<Surface>().gameObject;
         //createdItem.transform.localScale = new Vector3(6.21f,16.61f, 6.33f);

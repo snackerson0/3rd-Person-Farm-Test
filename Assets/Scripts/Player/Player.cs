@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     {
         ProcessMovement();
         DisplayInventory();
-        UseToolbarItems();
+        //UseToolbarItems();
         if (Input.GetKeyDown(KeyCode.Escape))
             Cursor.lockState = CursorLockMode.None;
 
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
     }
-
+    /*
     private void UseToolbarItems()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -112,6 +112,45 @@ public class Player : MonoBehaviour
         {
             print("button 6 was pressed");
             toolbar.UseToolbarItemSlot(6);
+        }
+    }
+    */
+    public void PlaceItem(GameObject tableToPlaceOn)
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            print("button 1 was pressed");
+            toolbar.PlaceToolbarItemSlot(1,tableToPlaceOn);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            print("button 2 was pressed");
+            toolbar.PlaceToolbarItemSlot(2,tableToPlaceOn);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            print("button 3 was pressed");
+            toolbar.PlaceToolbarItemSlot(3,tableToPlaceOn);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            print("button 4 was pressed");
+            toolbar.PlaceToolbarItemSlot(4,tableToPlaceOn);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            print("button 5 was pressed");
+            toolbar.PlaceToolbarItemSlot(5,tableToPlaceOn);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            print("button 6 was pressed");
+            toolbar.PlaceToolbarItemSlot(6,tableToPlaceOn);
         }
     }
 }

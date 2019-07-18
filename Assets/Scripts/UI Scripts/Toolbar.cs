@@ -33,12 +33,8 @@ new void Awake()
         else
             print("There is no item in toolbar slot " + toolbarNumber);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+  
+   
      override public void AddNewItem(Item item)
     {
         if (!playerInventory.isToolbarFull)
@@ -83,5 +79,18 @@ new void Awake()
             if (!playerInventory.isToolbarFull)
                 playerInventory.isToolbarFull = true;
         }
+    }
+
+    public void PlaceToolbarItemSlot(int toolbarNumber, GameObject tableToPlaceOn)
+    {
+        int i = toolbarNumber - 1;
+
+        Item itemToUse = uiItems[i].item;
+
+        if (itemToUse != null)
+            PlaceItem.PotionToPlace(itemToUse,tableToPlaceOn);
+
+        else
+            print("There is no item in toolbar slot " + toolbarNumber);
     }
 }

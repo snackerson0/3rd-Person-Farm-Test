@@ -6,6 +6,13 @@ public class PlaceItem : MonoBehaviour
 {
     static private Inventory playerInventory;
 
+
+
+    private void Awake()
+    {
+        playerInventory = FindObjectOfType<Inventory>();
+    }
+
     static public void PlaceAnyItem(Item item)
     {
         if (item.seedItem != null)
@@ -30,6 +37,7 @@ public class PlaceItem : MonoBehaviour
 
             GameObject createdObject = Instantiate(item.prefab, locationToPlaceAt, Quaternion.identity);
             createdObject.transform.SetParent(table.transform, true);
+            playerInventory.RemoveItem(item);
         }
         else
             print("There was no seed item to place on the table");

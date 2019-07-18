@@ -8,10 +8,7 @@ public class Toolbar : UIInventory
     Inventory playerInventory;
     // Start is called before the first frame update
 
-new void Awake()
-    {
-        base.Awake();
-    }
+  
 
     void Start()
     {
@@ -89,9 +86,16 @@ new void Awake()
         Item itemToUse = uiItems[i].item;
 
         if (itemToUse != null && !currentTable.hasItemOnTable)
-            PlaceItem.PotionToPlace(itemToUse,tableToPlaceOn);
+        {
+            PlaceItem.PotionToPlace(itemToUse, tableToPlaceOn);
+        }
 
-        else if(itemToUse == null&& currentTable.hasItemOnTable)
+        else if (itemToUse != null && currentTable.hasItemOnTable && itemToUse != currentTable.itemOnTable)
+        {
+            PlaceItem.PotionToSwap(itemToUse, tableToPlaceOn);
+        }
+
+        else if (itemToUse == null && currentTable.hasItemOnTable)
         {
             PlaceItem.PotionToRemove(tableToPlaceOn);
         }

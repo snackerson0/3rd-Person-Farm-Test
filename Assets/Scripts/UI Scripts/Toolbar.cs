@@ -81,16 +81,22 @@ new void Awake()
         }
     }
 
-    public void PlaceToolbarItemSlot(int toolbarNumber, GameObject tableToPlaceOn)
+    public void PlaceOrRemoveToolbarItemSlot(int toolbarNumber, GameObject tableToPlaceOn)
     {
+        Table currentTable = tableToPlaceOn.GetComponent<Table>();
         int i = toolbarNumber - 1;
 
         Item itemToUse = uiItems[i].item;
 
-        if (itemToUse != null)
+        if (itemToUse != null && !currentTable.hasItemOnTable)
             PlaceItem.PotionToPlace(itemToUse,tableToPlaceOn);
 
-        else
-            print("There is no item in toolbar slot " + toolbarNumber);
+        else if(itemToUse == null&& currentTable.hasItemOnTable)
+        {
+            PlaceItem.PotionToRemove(tableToPlaceOn);
+        }
+            
     }
+
+
 }

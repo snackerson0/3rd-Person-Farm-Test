@@ -645,6 +645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6646ac09da61e03459ab6287bfae7680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameObjectOnTable: {fileID: 0}
+  hasItemOnTable: 0
 --- !u!114 &488895002 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114573244806300504, guid: 1e999598cf216204e99d0ba511e51ff5,

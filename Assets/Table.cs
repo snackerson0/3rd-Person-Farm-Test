@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Table : MonoBehaviour
 {
+    public Item itemOnTable;
+    public GameObject gameObjectOnTable;
+
     Player player;
+    public bool hasItemOnTable = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,9 +18,11 @@ public class Table : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" )
         {
             player.PlaceItem(this.gameObject);
+            return;
+           
         }
     }
 }

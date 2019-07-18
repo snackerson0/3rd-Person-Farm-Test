@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    PlaceItem placeItem;
+
     [SerializeField] GameObject objectToCreate;
 
     private CharacterController characterController;
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
 
     private void DisplayInventory()
     {
+
         if (Input.GetKeyDown(KeyCode.I) && playerInventory.activeSelf)
         {
             playerInventory.SetActive(false);
@@ -117,40 +120,45 @@ public class Player : MonoBehaviour
     */
     public void PlaceItem(GameObject tableToPlaceOn)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            print("button 1 was pressed");
-            toolbar.PlaceToolbarItemSlot(1,tableToPlaceOn);
-        }
+        Table currentTable = tableToPlaceOn.GetComponent<Table>();
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (currentTable != null)
         {
-            print("button 2 was pressed");
-            toolbar.PlaceToolbarItemSlot(2,tableToPlaceOn);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {             
+                    toolbar.PlaceOrRemoveToolbarItemSlot(1, tableToPlaceOn);
+ 
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            print("button 3 was pressed");
-            toolbar.PlaceToolbarItemSlot(3,tableToPlaceOn);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                print("button 2 was pressed");
+                toolbar.PlaceOrRemoveToolbarItemSlot(2, tableToPlaceOn);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            print("button 4 was pressed");
-            toolbar.PlaceToolbarItemSlot(4,tableToPlaceOn);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                print("button 3 was pressed");
+                toolbar.PlaceOrRemoveToolbarItemSlot(3, tableToPlaceOn);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            print("button 5 was pressed");
-            toolbar.PlaceToolbarItemSlot(5,tableToPlaceOn);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                print("button 4 was pressed");
+                toolbar.PlaceOrRemoveToolbarItemSlot(4, tableToPlaceOn);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            print("button 6 was pressed");
-            toolbar.PlaceToolbarItemSlot(6,tableToPlaceOn);
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                print("button 5 was pressed");
+                toolbar.PlaceOrRemoveToolbarItemSlot(5, tableToPlaceOn);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                print("button 6 was pressed");
+                toolbar.PlaceOrRemoveToolbarItemSlot(6, tableToPlaceOn);
+            }
         }
     }
 }

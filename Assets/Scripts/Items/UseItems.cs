@@ -39,6 +39,7 @@ public class UseItems : MonoBehaviour
     {
         print("The seed item use was used.");
         farming.seedToCreate = item.prefab;
-        playerInventory.RemoveItem(item);
+        playerInventory.RemoveItem(item);      
+
     }
 }

@@ -53,6 +53,7 @@ public class CircularTimer : MonoBehaviour
 
     void Update()
     {
+        
         if (!isPaused)
         {
             CurrentTime += Time.deltaTime;
@@ -89,6 +90,7 @@ public class CircularTimer : MonoBehaviour
                     break;
             }
             UpdateUI();
+       
         }
     }
 
@@ -98,13 +100,33 @@ public class CircularTimer : MonoBehaviour
         fillSettings.tailCapImage.enabled = isShow;
     }
 
+    Color lerpedColor;
+    Color lightGreen = new Color(0.85f,1f,0f,1); 
     public void UpdateUI()
     {
+        if (fillSettings.fillImage.fillAmount <= .50f)
+            lerpedColor = Color.Lerp(Color.red, Color.yellow, (CurrentTime/duration)* 2);
+
+        else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
+           lerpedColor = Color.Lerp(Color.yellow, lightGreen, ((CurrentTime/duration)-.50f) *4);
+
+        else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
+            lerpedColor = Color.Lerp(lightGreen,Color.green, ((CurrentTime / duration) - .75f) * 4);
+
+
+        fillSettings.color = lerpedColor;
+        
+
+
+
         fillSettings.fillImage.color = fillSettings.color;
         fillSettings.headCapImage.color = fillSettings.color;
         fillSettings.tailCapImage.color = fillSettings.color;
 
         textSettings.text.color = textSettings.color;
+
+       
+            
 
         if (backgroundSettings.enabled)
         {

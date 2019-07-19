@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Shops\OpenShopMenu.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\ItemFollowMouse.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\Toolbar.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIFacePlayer.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\UIInventory.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\UIItem.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\UIItems.cs" />

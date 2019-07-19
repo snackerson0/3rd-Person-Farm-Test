@@ -79,6 +79,29 @@ public class Inventory : MonoBehaviour
         else
             print("Both of your inventories are full");
     }
+    
+    public void AddItemToToolbarSlot(Item itemToAdd, int toolbarSlot)
+    {
+        UpdateInventory();
+        if (!isToolbarFull)
+        {
+            toolbarInventory.AddItemToToolbarSlot(itemToAdd, toolbarSlot);
+            characterItems.Add(itemToAdd);
+
+            print("Added the item: " + itemToAdd.itemName);
+        }
+
+        else if (!isInventoryFull)
+        {
+            inventoryUI.AddNewItem(itemToAdd);
+            characterItems.Add(itemToAdd);
+
+            print("Add the item: " + itemToAdd.itemName);
+        }
+        else
+            print("Both of your inventories are full");
+    
+}
 
     public Item CheckForItem(int itemID)
     {

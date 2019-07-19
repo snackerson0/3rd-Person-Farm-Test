@@ -5,12 +5,13 @@ using UnityEngine;
 public class PlaceItem : MonoBehaviour
 {
     static private Inventory playerInventory;
-
+ 
 
 
     private void Awake()
     {
         playerInventory = FindObjectOfType<Inventory>();
+        
     }
 
     static public void PlaceAnyItem(Item item)
@@ -52,12 +53,12 @@ public class PlaceItem : MonoBehaviour
             print("There was no seed item to place on the table");
         }
 
-    static public void PotionToRemove( GameObject table)
+    static public void PotionToRemove( GameObject table,int toolbarSlot)
     {
         
         Table currentTable = table.GetComponent<Table>();
 
-        playerInventory.AddItem(currentTable.itemOnTable);
+        playerInventory.AddItemToToolbarSlot(currentTable.itemOnTable,toolbarSlot);
 
         Destroy(currentTable.gameObjectOnTable);
 
@@ -66,7 +67,7 @@ public class PlaceItem : MonoBehaviour
         currentTable.itemOnTable = null;
     }
 
-    static public void PotionToSwap(Item item, GameObject table)
+    static public void PotionToSwap(Item item, GameObject table, int toolbarSlot)
     {
         if (item.seedItem != null)
         {
@@ -88,7 +89,8 @@ public class PlaceItem : MonoBehaviour
             currentTable.itemOnTable = item;
 
             playerInventory.RemoveItem(item);
-            playerInventory.AddItem(oldItem);
+            playerInventory.AddItemToToolbarSlot(oldItem, toolbarSlot);
+
 
             if (currentTable != null)
                 currentTable.hasItemOnTable = true;

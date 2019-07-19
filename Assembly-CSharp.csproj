@@ -61,6 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CircularTimer\Scripts\CircularTimer.cs" />
+    <Compile Include="Assets\CircularTimer\Scripts\EditMode.cs" />
+    <Compile Include="Assets\CircularTimer\Scripts\GameManager.cs" />
+    <Compile Include="Assets\CreateItem.cs" />
     <Compile Include="Assets\PlaceItem.cs" />
     <Compile Include="Assets\Scripts\Databases\ItemDatabase.cs" />
     <Compile Include="Assets\Scripts\Databases\SeedDatabase.cs" />

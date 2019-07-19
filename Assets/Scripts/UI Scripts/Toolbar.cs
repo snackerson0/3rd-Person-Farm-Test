@@ -47,6 +47,23 @@ public class Toolbar : UIInventory
             }
         }
     }
+    public void AddItemToToolbarSlot(Item itemToAdd, int toolbarSlot)
+    {
+
+        if (!playerInventory.isToolbarFull)
+        {
+            try
+            {
+                UpdateItem(toolbarSlot, itemToAdd);
+            }
+            catch
+            {
+                playerInventory.isToolbarFull = true;
+                print("The item was not added. ToolBar is full");
+            }
+        }
+
+    }
 
    override public void RemoveItem(Item item)
     {
@@ -81,9 +98,9 @@ public class Toolbar : UIInventory
     public void PlaceOrRemoveToolbarItemSlot(int toolbarNumber, GameObject tableToPlaceOn)
     {
         Table currentTable = tableToPlaceOn.GetComponent<Table>();
-        int i = toolbarNumber - 1;
+        int slotNumber = toolbarNumber - 1;
 
-        Item itemToUse = uiItems[i].item;
+        Item itemToUse = uiItems[slotNumber].item;
 
         if (itemToUse != null && !currentTable.hasItemOnTable)
         {
@@ -92,15 +109,16 @@ public class Toolbar : UIInventory
 
         else if (itemToUse != null && currentTable.hasItemOnTable && itemToUse != currentTable.itemOnTable)
         {
-            PlaceItem.PotionToSwap(itemToUse, tableToPlaceOn);
+            PlaceItem.PotionToSwap(itemToUse, tableToPlaceOn, slotNumber);
         }
 
         else if (itemToUse == null && currentTable.hasItemOnTable)
         {
-            PlaceItem.PotionToRemove(tableToPlaceOn);
+            PlaceItem.PotionToRemove(tableToPlaceOn, slotNumber);
         }
             
     }
 
+    
 
 }

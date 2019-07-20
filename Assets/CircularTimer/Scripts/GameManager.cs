@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
-
+/*
     public CircularTimer[] circularTimers;
     public Text text;
 
@@ -39,4 +39,5 @@ public class GameManager : MonoBehaviour {
     {
         text.text = "Finished";
     }
+    */
 }

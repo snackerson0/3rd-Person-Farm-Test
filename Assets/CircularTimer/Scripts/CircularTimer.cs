@@ -7,16 +7,16 @@ using System;
 
 public class CircularTimer : MonoBehaviour
 {
-    Color lerpedColor;
+    Color lerpedColor, bgLerpedColor;
 
-    [SerializeField] Color firstColor, secondColor, thirdColor, fourthColor;
+    [SerializeField] public Color firstColor, secondColor, thirdColor, fourthColor, fifthColor;
 
-    public enum CountDirection { countUp, countDown }
+    public enum ColorMode { normal, single, custom }
 
-    public enum ColorMode {normal, custom}
-   
+    public enum TextPosition { aboveCircle, belowCircle }
+
     public enum FillType { tick, smooth }   // call tranistion type?
-    public float duration;
+    private float duration;
 
     public bool turnClockwise = true;
 
@@ -33,10 +33,10 @@ public class CircularTimer : MonoBehaviour
     [System.Serializable]
     public class FillSettings
     {
+        public ColorMode colorMode;
         public Color color;
         public FillType fillType;
         public Image fillImage;
-        public ColorMode colorMode;
     }
     public FillSettings fillSettings;
 
@@ -46,6 +46,9 @@ public class CircularTimer : MonoBehaviour
         public bool enabled;
         public Color color;
         public Image backgroundImage;
+        public ColorMode colorMode;
+        public Color firstColor, secondColor, thirdColor, fourthColor, fifthColor;
+
     }
     public BackgroundSettings backgroundSettings;
 
@@ -56,12 +59,18 @@ public class CircularTimer : MonoBehaviour
         public bool displayMillisecond;
         public Text text;
         public Color color;
-        public CountDirection countType;
     }
     public TextSettings textSettings;
 
-
-
+    [System.Serializable]
+    public class SpriteSettings
+    {
+        public bool enabled = false;
+        public Image image;
+        public Sprite sprite;
+        public TextPosition textPostion;
+    }
+    public SpriteSettings spriteSettings;
 
     public UnityEvent didFinishedTimerTime;
 
@@ -70,8 +79,21 @@ public class CircularTimer : MonoBehaviour
 
     bool isPaused = false;
 
+    private void Start()
+    {
+        CalculateDuration();
+    }
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+            PauseTimer();
+
+        if (Input.GetKeyUp(KeyCode.Space))
+            ResumeTimer();
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            ResetTimer();
 
         if (!isPaused)
         {
@@ -97,20 +119,68 @@ public class CircularTimer : MonoBehaviour
 
         ProcessBackGround();
 
+        ProcessSprite();
+
         ProcessText();
+    }
+    private void ProcessSprite()
+    {
+        if (spriteSettings.enabled)
+        {
+            spriteSettings.image.gameObject.SetActive(true);
+
+            if (spriteSettings.sprite != null)
+                spriteSettings.image.sprite = spriteSettings.sprite;
+            else
+                print("You enabled the sprite but never set the image for the sprite.");
+        }
+        else
+            spriteSettings.image.gameObject.SetActive(false);
     }
 
     private void ProcessBackGround()
     {
         if (backgroundSettings.enabled)
         {
-            backgroundSettings.backgroundImage.gameObject.SetActive(true);
-            backgroundSettings.backgroundImage.color = backgroundSettings.color;
+            if (turnClockwise)
+            {
+                if (backgroundSettings.colorMode == ColorMode.normal)
+                {
+                    backgroundSettings.color = new Color(0.61f, 0.64f, 0.67f, 0.17f);
+                    backgroundSettings.backgroundImage.color = backgroundSettings.color;
+                }
+
+                else if (backgroundSettings.colorMode == ColorMode.custom)
+                {
+                    print("Using custom colr");
+                    ProcessCustomBackgroundColors();
+                    backgroundSettings.backgroundImage.color = bgLerpedColor;
+
+                }
+                else if (backgroundSettings.colorMode == ColorMode.single)
+                    backgroundSettings.backgroundImage.color = backgroundSettings.firstColor;
+            }
+
         }
         else
         {
             backgroundSettings.backgroundImage.gameObject.SetActive(false);
         }
+
+    }
+    private void ProcessCustomBackgroundColors()
+    {
+        if (fillSettings.fillImage.fillAmount <= .25f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.firstColor, backgroundSettings.secondColor, fillSettings.fillImage.fillAmount * 4);
+
+        else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.secondColor, backgroundSettings.thirdColor, ((fillSettings.fillImage.fillAmount) - .25f) * 4);
+
+        else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.thirdColor, backgroundSettings.fourthColor, (fillSettings.fillImage.fillAmount - .50f) * 4);
+
+        else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.fourthColor, backgroundSettings.fifthColor, (fillSettings.fillImage.fillAmount - .75f) * 4);
 
     }
 
@@ -119,30 +189,20 @@ public class CircularTimer : MonoBehaviour
         isPaused = true;
     }
 
-    public void StartTimer()
+    public void ResumeTimer()
     {
         isPaused = false;
     }
 
-    public void StopTimer()
+    public void StopAndReset()
     {
-        CurrentTime = 0;
-        AfterImageTime = 0;
         isPaused = true;
         ResetTimer();
     }
 
     void ResetTimer()
-    {/*
-        switch (fillSettings.fillDirection)
-        {
-            case FillDirection.fillDown:
-                fillSettings.fillImage.fillAmount = 0;
-                break;
-            case FillDirection.fillUp:
-                fillSettings.fillImage.fillAmount = 1;
-                break;
-        }*/
+    {
+        CurrentTime = 0f;
     }
 
     private void ProcessColors()
@@ -152,6 +212,9 @@ public class CircularTimer : MonoBehaviour
 
         else if (fillSettings.colorMode == ColorMode.custom)
             ProcessCustomColors();
+
+        else if (fillSettings.colorMode == ColorMode.single)
+            fillSettings.fillImage.color = firstColor;
     }
 
     private void ProcessDefaultColors()
@@ -161,54 +224,76 @@ public class CircularTimer : MonoBehaviour
          * color you want to transition to in the second argument.
          * The third argument only accepts values from 0-1. A zero value will give you the first
          * color and a value of 1 will give you the second color. I get the value to zero by
-         * dividing the current time by the duration and subtracting what is necessary to get to 0
+         * getting the fill value and subtracting what is necessary to get to 0
          * then gradually multiplying it by 4 until the value becomes 1 which makes the color change 
          * to the second color.
          */
 
+        Color orange = new Color(1, .64f, 0, 1);
         Color lightGreen = new Color(0.85f, 1f, 0f, 1);
+        if (turnClockwise)
+        {
+            if (fillSettings.fillImage.fillAmount <= .25f)
+                lerpedColor = Color.Lerp(Color.red, orange, fillSettings.fillImage.fillAmount * 4);
 
-        if (fillSettings.fillImage.fillAmount <= .50f)
-            lerpedColor = Color.Lerp(Color.red, Color.yellow, (CurrentTime / duration) * 2);
+            else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
+                lerpedColor = Color.Lerp(orange, Color.yellow, (fillSettings.fillImage.fillAmount - .25f) * 4);
 
-        else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
-            lerpedColor = Color.Lerp(Color.yellow, lightGreen, ((CurrentTime / duration) - .50f) * 4);
+            else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
+                lerpedColor = Color.Lerp(Color.yellow, lightGreen, (fillSettings.fillImage.fillAmount - .50f) * 4);
 
-        else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
-            lerpedColor = Color.Lerp(lightGreen, Color.green, ((CurrentTime / duration) - .75f) * 4);
+            else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
+                lerpedColor = Color.Lerp(lightGreen, Color.green, (fillSettings.fillImage.fillAmount - .75f) * 4);
 
 
-        fillSettings.color = lerpedColor;
+            fillSettings.fillImage.color = lerpedColor;
+        }
 
-        fillSettings.fillImage.color = fillSettings.color;
+        else
+        {//this may be the answer!!
+            if (fillSettings.fillImage.fillAmount > .75)
+                lerpedColor = Color.Lerp(lightGreen, Color.green, ((duration - CurrentTime) / duration)) * 4;
+
+            else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
+                lerpedColor = Color.Lerp(lightGreen, Color.yellow, ((CurrentTime / duration) - .50f) * 4);
+
+            else if (fillSettings.fillImage.fillAmount <= .50f)
+                lerpedColor = Color.Lerp(Color.red, Color.yellow, (CurrentTime / duration) * 2);
+
+
+
+
+
+            fillSettings.color = lerpedColor;
+            fillSettings.fillImage.color = fillSettings.color;
+        }
     }
 
     private void ProcessCustomColors()
     {
         /*In order to gradually change between two colors, a color lerp is required.
-         *Simply input the color you want displayed first in the first argument and the second
-         * color you want to transition to in the second argument.
-         * The third argument only accepts values from 0-1. A zero value will give you the first
-         * color and a value of 1 will give you the second color. I get the value to zero by
-         * dividing the current time by the duration and subtracting what is necessary to get to 0
-         * then gradually multiplying it by 4 until the value becomes 1 which makes the color change 
-         * to the second color.
-         */
+       *Simply input the color you want displayed first in the first argument and the second
+       * color you want to transition to in the second argument.
+       * The third argument only accepts values from 0-1. A zero value will give you the first
+       * color and a value of 1 will give you the second color. I get the value to zero by
+       * getting the fill value and subtracting what is necessary to get to 0
+       * then gradually multiplying it by 4 until the value becomes 1 which makes the color change 
+       * to the second color.
+       */
 
+        if (fillSettings.fillImage.fillAmount <= .25f)
+            lerpedColor = Color.Lerp(firstColor, secondColor, fillSettings.fillImage.fillAmount * 4);
 
-        if (fillSettings.fillImage.fillAmount <= .50f)
-            lerpedColor = Color.Lerp(firstColor, secondColor, (CurrentTime / duration) * 2);
+        else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
+            lerpedColor = Color.Lerp(secondColor, thirdColor, (fillSettings.fillImage.fillAmount - .25f) * 4);
 
         else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
-            lerpedColor = Color.Lerp(secondColor, thirdColor, ((CurrentTime / duration) - .50f) * 4);
+            lerpedColor = Color.Lerp(thirdColor, fourthColor, (fillSettings.fillImage.fillAmount - .50f) * 4);
 
         else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
-            lerpedColor = Color.Lerp(thirdColor, fourthColor, ((CurrentTime / duration) - .75f) * 4);
+            lerpedColor = Color.Lerp(fourthColor, fifthColor, (fillSettings.fillImage.fillAmount - .75f) * 4);
 
-
-        fillSettings.color = lerpedColor;
-
-        fillSettings.fillImage.color = fillSettings.color;
+        fillSettings.fillImage.color = lerpedColor;
     }
 
     private void ProcessFillTypeAndDirection()
@@ -231,18 +316,24 @@ public class CircularTimer : MonoBehaviour
                 fillSettings.fillImage.fillAmount = (float)System.Math.Round((duration - CurrentTime) / duration, 1);
 
         }
-          
-        
+
+
     }
 
     private void ProcessText()
-    {       
+    {
         if (textSettings.enabled)
         {
             textSettings.text.color = textSettings.color;
 
             textSettings.text.gameObject.SetActive(true);
 
+            if (spriteSettings.enabled)
+            {
+
+
+
+            }
             float time = CurrentTime;
 
             if (turnClockwise)
@@ -268,11 +359,27 @@ public class CircularTimer : MonoBehaviour
                     textSettings.text.text = (duration - time).ToString("F0");
                 }
             }
-            } 
-        
+        }
+
         else
         {
             textSettings.text.gameObject.SetActive(false);
         }
+    }
+
+    private void CalculateDuration()
+    {
+        int hours = timerDuration.hours;
+        int minutes = timerDuration.minutes;
+        int seconds = timerDuration.seconds;
+
+
+        if (hours > 0)
+            minutes += hours * 60;
+
+        if (minutes > 0)
+            seconds += minutes * 60;
+
+        duration = seconds;
     }
 }

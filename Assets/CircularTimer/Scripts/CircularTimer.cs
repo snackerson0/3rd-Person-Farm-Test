@@ -6,14 +6,14 @@ using UnityEngine.Events;
 using System;
 
 public class CircularTimer : MonoBehaviour
-{
+{   
     Color lerpedColor, bgLerpedColor;
 
     [SerializeField] public Color firstColor, secondColor, thirdColor, fourthColor, fifthColor;
 
     public enum ColorMode { normal, single, custom }
 
-    public enum TextPosition { aboveCircle, belowCircle }
+    public enum TextPosition { aboveCircle, midCircle, belowCircle }
 
     public enum FillType { tick, smooth }   // call tranistion type?
     private float duration;
@@ -56,8 +56,9 @@ public class CircularTimer : MonoBehaviour
     public class TextSettings
     {
         public bool enabled;
+        public TextPosition textPostion;
         public bool displayMillisecond;
-        public Text text;
+        public Text topText, middleText, bottomText;
         public Color color;
     }
     public TextSettings textSettings;
@@ -68,7 +69,6 @@ public class CircularTimer : MonoBehaviour
         public bool enabled = false;
         public Image image;
         public Sprite sprite;
-        public TextPosition textPostion;
     }
     public SpriteSettings spriteSettings;
 
@@ -82,6 +82,12 @@ public class CircularTimer : MonoBehaviour
     private void Start()
     {
         CalculateDuration();
+
+        if (turnClockwise)
+            CurrentTime = 0;
+
+        else if (!turnClockwise)
+            CurrentTime = duration;
     }
 
     void Update()
@@ -97,16 +103,7 @@ public class CircularTimer : MonoBehaviour
 
         if (!isPaused)
         {
-            CurrentTime += Time.deltaTime;
-
-            if (CurrentTime >= duration)
-            {
-                isPaused = true;
-                CurrentTime = duration;
-                didFinishedTimerTime.Invoke();
-            }
             ProcessFillTypeAndDirection();
-
 
             UpdateUI();
 
@@ -127,7 +124,8 @@ public class CircularTimer : MonoBehaviour
     {
         if (spriteSettings.enabled)
         {
-            spriteSettings.image.gameObject.SetActive(true);
+            if (!spriteSettings.image.gameObject.activeSelf)
+                spriteSettings.image.gameObject.SetActive(true);
 
             if (spriteSettings.sprite != null)
                 spriteSettings.image.sprite = spriteSettings.sprite;
@@ -135,54 +133,10 @@ public class CircularTimer : MonoBehaviour
                 print("You enabled the sprite but never set the image for the sprite.");
         }
         else
+            if (spriteSettings.image.gameObject.activeSelf)
             spriteSettings.image.gameObject.SetActive(false);
     }
 
-    private void ProcessBackGround()
-    {
-        if (backgroundSettings.enabled)
-        {
-            if (turnClockwise)
-            {
-                if (backgroundSettings.colorMode == ColorMode.normal)
-                {
-                    backgroundSettings.color = new Color(0.61f, 0.64f, 0.67f, 0.17f);
-                    backgroundSettings.backgroundImage.color = backgroundSettings.color;
-                }
-
-                else if (backgroundSettings.colorMode == ColorMode.custom)
-                {
-                    print("Using custom colr");
-                    ProcessCustomBackgroundColors();
-                    backgroundSettings.backgroundImage.color = bgLerpedColor;
-
-                }
-                else if (backgroundSettings.colorMode == ColorMode.single)
-                    backgroundSettings.backgroundImage.color = backgroundSettings.firstColor;
-            }
-
-        }
-        else
-        {
-            backgroundSettings.backgroundImage.gameObject.SetActive(false);
-        }
-
-    }
-    private void ProcessCustomBackgroundColors()
-    {
-        if (fillSettings.fillImage.fillAmount <= .25f)
-            bgLerpedColor = Color.Lerp(backgroundSettings.firstColor, backgroundSettings.secondColor, fillSettings.fillImage.fillAmount * 4);
-
-        else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
-            bgLerpedColor = Color.Lerp(backgroundSettings.secondColor, backgroundSettings.thirdColor, ((fillSettings.fillImage.fillAmount) - .25f) * 4);
-
-        else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
-            bgLerpedColor = Color.Lerp(backgroundSettings.thirdColor, backgroundSettings.fourthColor, (fillSettings.fillImage.fillAmount - .50f) * 4);
-
-        else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
-            bgLerpedColor = Color.Lerp(backgroundSettings.fourthColor, backgroundSettings.fifthColor, (fillSettings.fillImage.fillAmount - .75f) * 4);
-
-    }
 
     public void PauseTimer()
     {
@@ -200,9 +154,38 @@ public class CircularTimer : MonoBehaviour
         ResetTimer();
     }
 
-    void ResetTimer()
+    public void ResetTimer()
     {
-        CurrentTime = 0f;
+        if (turnClockwise)
+            CurrentTime = 0;
+
+        else if (!turnClockwise)
+            CurrentTime = duration;
+    }
+
+    public void ReverseTimer()
+    {
+        if (turnClockwise)
+            turnClockwise = false;
+
+        else if (!turnClockwise)
+            turnClockwise = true;
+    }
+
+    private void CalculateDuration()
+    {
+        int hours = timerDuration.hours;
+        int minutes = timerDuration.minutes;
+        int seconds = timerDuration.seconds;
+
+
+        if (hours > 0)
+            minutes += hours * 60;
+
+        if (minutes > 0)
+            seconds += minutes * 60;
+
+        duration = seconds;
     }
 
     private void ProcessColors()
@@ -231,42 +214,23 @@ public class CircularTimer : MonoBehaviour
 
         Color orange = new Color(1, .64f, 0, 1);
         Color lightGreen = new Color(0.85f, 1f, 0f, 1);
-        if (turnClockwise)
-        {
-            if (fillSettings.fillImage.fillAmount <= .25f)
-                lerpedColor = Color.Lerp(Color.red, orange, fillSettings.fillImage.fillAmount * 4);
-
-            else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
-                lerpedColor = Color.Lerp(orange, Color.yellow, (fillSettings.fillImage.fillAmount - .25f) * 4);
-
-            else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
-                lerpedColor = Color.Lerp(Color.yellow, lightGreen, (fillSettings.fillImage.fillAmount - .50f) * 4);
-
-            else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
-                lerpedColor = Color.Lerp(lightGreen, Color.green, (fillSettings.fillImage.fillAmount - .75f) * 4);
 
 
-            fillSettings.fillImage.color = lerpedColor;
-        }
+        if (fillSettings.fillImage.fillAmount <= .25f)
+            lerpedColor = Color.Lerp(Color.red, orange, fillSettings.fillImage.fillAmount * 4);
 
-        else
-        {//this may be the answer!!
-            if (fillSettings.fillImage.fillAmount > .75)
-                lerpedColor = Color.Lerp(lightGreen, Color.green, ((duration - CurrentTime) / duration)) * 4;
+        else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
+            lerpedColor = Color.Lerp(orange, Color.yellow, (fillSettings.fillImage.fillAmount - .25f) * 4);
 
-            else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
-                lerpedColor = Color.Lerp(lightGreen, Color.yellow, ((CurrentTime / duration) - .50f) * 4);
+        else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
+            lerpedColor = Color.Lerp(Color.yellow, lightGreen, (fillSettings.fillImage.fillAmount - .50f) * 4);
 
-            else if (fillSettings.fillImage.fillAmount <= .50f)
-                lerpedColor = Color.Lerp(Color.red, Color.yellow, (CurrentTime / duration) * 2);
+        else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
+            lerpedColor = Color.Lerp(lightGreen, Color.green, (fillSettings.fillImage.fillAmount - .75f) * 4);
 
 
+        fillSettings.fillImage.color = lerpedColor;
 
-
-
-            fillSettings.color = lerpedColor;
-            fillSettings.fillImage.color = fillSettings.color;
-        }
     }
 
     private void ProcessCustomColors()
@@ -281,6 +245,7 @@ public class CircularTimer : MonoBehaviour
        * to the second color.
        */
 
+        // Try to delete reverse method and see if it automatically reversesw
         if (fillSettings.fillImage.fillAmount <= .25f)
             lerpedColor = Color.Lerp(firstColor, secondColor, fillSettings.fillImage.fillAmount * 4);
 
@@ -296,10 +261,66 @@ public class CircularTimer : MonoBehaviour
         fillSettings.fillImage.color = lerpedColor;
     }
 
+    private void ProcessBackGround()
+    {
+        if (backgroundSettings.enabled)
+        {
+            if (turnClockwise)
+            {
+                if (backgroundSettings.colorMode == ColorMode.normal)
+                {
+                    backgroundSettings.color = new Color(0.61f, 0.64f, 0.67f, 0.17f);
+                    backgroundSettings.backgroundImage.color = backgroundSettings.color;
+                }
+
+                else if (backgroundSettings.colorMode == ColorMode.custom)
+                {
+                    ProcessCustomBackgroundColors();
+                    backgroundSettings.backgroundImage.color = bgLerpedColor;
+
+                }
+                else if (backgroundSettings.colorMode == ColorMode.single)
+                    backgroundSettings.backgroundImage.color = backgroundSettings.firstColor;
+            }
+
+        }
+        else
+        {
+            if (backgroundSettings.backgroundImage.gameObject.activeSelf)
+                backgroundSettings.backgroundImage.gameObject.SetActive(false);
+        }
+
+    }
+
+    private void ProcessCustomBackgroundColors()
+    {
+        if (fillSettings.fillImage.fillAmount <= .25f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.firstColor, backgroundSettings.secondColor, fillSettings.fillImage.fillAmount * 4);
+
+        else if (fillSettings.fillImage.fillAmount > .25f && fillSettings.fillImage.fillAmount <= .50f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.secondColor, backgroundSettings.thirdColor, ((fillSettings.fillImage.fillAmount) - .25f) * 4);
+
+        else if (fillSettings.fillImage.fillAmount > .50f && fillSettings.fillImage.fillAmount <= .75f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.thirdColor, backgroundSettings.fourthColor, (fillSettings.fillImage.fillAmount - .50f) * 4);
+
+        else if (fillSettings.fillImage.fillAmount > .75f && fillSettings.fillImage.fillAmount <= 1f)
+            bgLerpedColor = Color.Lerp(backgroundSettings.fourthColor, backgroundSettings.fifthColor, (fillSettings.fillImage.fillAmount - .75f) * 4);
+    }
+
     private void ProcessFillTypeAndDirection()
     {
         if (turnClockwise)
         {
+            if (CurrentTime >= duration)
+            {
+                isPaused = true;
+                CurrentTime = duration;
+                didFinishedTimerTime.Invoke();
+                isTimerFinished = true;
+            }
+
+            CurrentTime += Time.deltaTime;
+
             if (fillSettings.fillType == FillType.smooth)
                 fillSettings.fillImage.fillAmount = CurrentTime / duration;
 
@@ -309,11 +330,22 @@ public class CircularTimer : MonoBehaviour
 
         else if (!turnClockwise)
         {
+            if (CurrentTime <= 0)
+            {
+                isPaused = true;
+                CurrentTime = 0;
+                didFinishedTimerTime.Invoke();
+                isTimerFinished = true;
+            }
+
+            CurrentTime -= Time.deltaTime;
+            print("current time is "+ CurrentTime);
+
             if (fillSettings.fillType == FillType.smooth)
-                fillSettings.fillImage.fillAmount = (duration - CurrentTime) / duration;
+                fillSettings.fillImage.fillAmount = CurrentTime / duration;
 
             else if (fillSettings.fillType == FillType.tick)
-                fillSettings.fillImage.fillAmount = (float)System.Math.Round((duration - CurrentTime) / duration, 1);
+                fillSettings.fillImage.fillAmount = (float)System.Math.Round(CurrentTime / duration, 1);
 
         }
 
@@ -324,62 +356,82 @@ public class CircularTimer : MonoBehaviour
     {
         if (textSettings.enabled)
         {
-            textSettings.text.color = textSettings.color;
-
-            textSettings.text.gameObject.SetActive(true);
-
-            if (spriteSettings.enabled)
+            if (textSettings.textPostion == TextPosition.aboveCircle)
             {
+                if (!textSettings.topText.gameObject.activeSelf)
+                {
+                    textSettings.topText.gameObject.SetActive(true);
+                    textSettings.topText.color = textSettings.color;
+                }
 
+                if (textSettings.middleText.gameObject.activeSelf)
+                    textSettings.middleText.gameObject.SetActive(false);
 
-
+                if (textSettings.bottomText.gameObject.activeSelf)
+                    textSettings.bottomText.gameObject.SetActive(false);
             }
+
+            else if (textSettings.textPostion == TextPosition.midCircle && !spriteSettings.enabled)
+            {
+                if (textSettings.topText.gameObject.activeSelf)
+                    textSettings.topText.gameObject.SetActive(false);
+
+                if (!textSettings.middleText.gameObject.activeSelf)
+                {
+                    textSettings.middleText.gameObject.SetActive(true);
+                    textSettings.bottomText.color = textSettings.color;
+                }
+
+                if (textSettings.bottomText.gameObject.activeSelf)
+                    textSettings.bottomText.gameObject.SetActive(false);
+            }
+
+            else if (textSettings.textPostion == TextPosition.belowCircle)
+            {
+                if (textSettings.topText.gameObject.activeSelf)
+                    textSettings.topText.gameObject.SetActive(false);
+
+                if (textSettings.middleText.gameObject.activeSelf)
+                    textSettings.middleText.gameObject.SetActive(false);
+
+                if (!textSettings.bottomText.gameObject.activeSelf)
+                {
+                    textSettings.bottomText.gameObject.SetActive(true);
+                    textSettings.bottomText.color = textSettings.color;
+                }
+            }
+
             float time = CurrentTime;
 
-            if (turnClockwise)
+            if (textSettings.displayMillisecond)
             {
-                if (textSettings.displayMillisecond)
+                switch (textSettings.textPostion)
                 {
-                    textSettings.text.text = time.ToString("F2");
+                    case TextPosition.aboveCircle: textSettings.topText.text = time.ToString("F2"); break;
+                    case TextPosition.midCircle: textSettings.middleText.text = time.ToString("F2"); break;
+                    case TextPosition.belowCircle: textSettings.bottomText.text = time.ToString("F2"); break;
                 }
-                else
-                {
-                    textSettings.text.text = time.ToString("F0");
-                }
-            }
 
-            else if (!turnClockwise)
+            }
+            else
             {
-                if (textSettings.displayMillisecond)
+                switch (textSettings.textPostion)
                 {
-                    textSettings.text.text = (duration - time).ToString("F2");
-                }
-                else
-                {
-                    textSettings.text.text = (duration - time).ToString("F0");
+                    case TextPosition.aboveCircle: textSettings.topText.text = time.ToString("F0"); break;
+                    case TextPosition.midCircle: textSettings.middleText.text = time.ToString("F0"); break;
+                    case TextPosition.belowCircle: textSettings.bottomText.text = time.ToString("F0"); break;
                 }
             }
         }
 
         else
         {
-            textSettings.text.gameObject.SetActive(false);
+            if (textSettings.topText.gameObject.activeSelf)
+                textSettings.topText.gameObject.SetActive(false);
+            if (textSettings.middleText.gameObject.activeSelf)
+                textSettings.middleText.gameObject.SetActive(false);
+            if (textSettings.bottomText.gameObject.activeSelf)
+                textSettings.bottomText.gameObject.SetActive(false);
         }
-    }
-
-    private void CalculateDuration()
-    {
-        int hours = timerDuration.hours;
-        int minutes = timerDuration.minutes;
-        int seconds = timerDuration.seconds;
-
-
-        if (hours > 0)
-            minutes += hours * 60;
-
-        if (minutes > 0)
-            seconds += minutes * 60;
-
-        duration = seconds;
     }
 }

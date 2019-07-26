@@ -71,7 +71,7 @@ public class PlaceItem : MonoBehaviour
     {
         if (item.seedItem != null)
         {
-            //TODO Make slot take old item instead of first empty slot
+            
             Table currentTable = table.GetComponent<Table>();
             Vector3 locationToPlaceAt = new Vector3(table.transform.position.x, 1, table.transform.position.z);
 
@@ -88,7 +88,7 @@ public class PlaceItem : MonoBehaviour
             currentTable.gameObjectOnTable = createdObject;
             currentTable.itemOnTable = item;
 
-            playerInventory.RemoveItem(item);
+            playerInventory.RemoveItemFromToolbarSlot(item, toolbarSlot);
             playerInventory.AddItemToToolbarSlot(oldItem, toolbarSlot);
 
 

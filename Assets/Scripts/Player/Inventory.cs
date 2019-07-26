@@ -100,8 +100,18 @@ public class Inventory : MonoBehaviour
         }
         else
             print("Both of your inventories are full");
-    
 }
+
+    public void RemoveItemFromToolbarSlot(Item itemToRemove, int toolbarSlot)
+    {
+        UpdateInventory();
+             
+        toolbarInventory.RemoveItemFromToolbarSlot(toolbarSlot);
+        characterItems.Remove(itemToRemove);
+
+        print("Removed the item: " + itemToRemove.itemName);
+        
+    }
 
     public Item CheckForItem(int itemID)
     {

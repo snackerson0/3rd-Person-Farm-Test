@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour
             toolbarInventory.AddItemToToolbarSlot(itemToAdd, toolbarSlot);
             characterItems.Add(itemToAdd);
 
-            print("Added the item: " + itemToAdd.itemName);
+
         }
 
         else if (!isInventoryFull)

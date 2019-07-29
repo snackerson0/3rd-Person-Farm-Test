@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemDatabase : MonoBehaviour
 {
     //TODO test to see if Tools display in inventory and use properly
-    public List<Item> items = new List<Item>();
+    public  List<Item> items = new List<Item>();
 
     static private SeedDatabase seedDatabase;
     static private ToolDatabase toolDatabase;
